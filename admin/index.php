@@ -53,8 +53,8 @@ echo $ADMIN->box(
 
 echo $ADMIN->box(
     'Github and Updates',
-    'Fork LayerBB on Github <a href="https://github.com/Codetana/LayerBB">here</a>.<br />
-       To keep up with the updates on LayerBB, you can fork/watch the LayerBB Github repository or visit our website at <a href="http://LayerBB.com">LayerBB.Com</a> regularly!'
+    'Get LayerBB on Github <a href="https://github.com/InfernoGroupUK/LayerBB">here</a>.<br />
+       To keep up with the updates on LayerBB, you can watch the LayerBB Github repository or visit our website at <a href="https://www.layerbb.com">LayerBB.Com</a> regularly!'
 );
 
 //require_once('template/bot.php');
