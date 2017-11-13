@@ -1,0 +1,9 @@
+/*
+ * LayerBB Install CSS
+ */
+@import url('bootstrap.min.css');
+
+.footer {
+    /* Font */
+    text-align: center;
+}
