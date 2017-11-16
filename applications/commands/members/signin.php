@@ -67,7 +67,10 @@ if (isset($_POST['signin'])) {
             $remember = (isset($_POST['remember'])) ? true : false;
             $LAYER->sess->assign($email, $remember);
             if (isset($_POST['current_url']) && !empty($_POST['current_url'])) {
-                header('refresh:3;url=http://' . $_POST['current_url']);
+                if( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443 ){
+                  $connection = 'https';
+                } else { $connection = 'http'; }
+                header('refresh:3;url='.$connection.'://' . $_POST['current_url']);
             } else {
                 header('refresh:3;url=' . SITE_URL . '/forum.php');
             }
