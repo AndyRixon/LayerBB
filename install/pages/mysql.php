@@ -108,9 +108,8 @@ if (isset($_POST['submit'])) {
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
 
             $sand = file_get_contents('../assets/theme-json/sand.json');
-            $blue = file_get_contents('../assets/theme-json/blue.json');
 
-            $stmt = $MYSQL->prepare("INSERT INTO " . $mysql_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand), ('Blue', '1.0', :blue);");
+            $stmt = $MYSQL->prepare("INSERT INTO " . $mysql_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand);");
             $stmt->bindParam(':sand', $sand);
             $stmt->bindParam(':blue', $blue);
             $stmt->execute();
