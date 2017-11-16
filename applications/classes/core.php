@@ -54,7 +54,7 @@ class LAYER_Core
                 $query['0']['user_avatar'] = SITE_URL . '/public/img/avatars/default.png';
             }
         } else {
-            $query['0']['user_avatar'] = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($query['0']['user_email']))) . "?d=mm&s=200";
+            $query['0']['user_avatar'] = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($query['0']['user_email']))) . "?d=mm&s=200";
         }
 
         if ($query['0']['additional_permissions'] !== "0") {
