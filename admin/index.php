@@ -20,7 +20,7 @@ if ($versions != '') {
     $versionList = explode("|", $versions);
     foreach ($versionList as $version) {
         if (version_compare(LayerBB_VERSION, $version, '<')) {
-            $alert = $ADMIN->alert('<p>New version found: ' . $version . '<br /><a href="' . SITE_URL . '/admin/update.php?doUpdate=true&step=1">&raquo; Download Now?</a></p>', 'warning');
+            $alert = $ADMIN->alert('<p>New version found: ' . $version . '<br /><a href="https://github.com/InfernoGroupUK/LayerBB/releases" target="_blank">&raquo; Download Now?</a></p>', 'warning');
         }
     }
 }
@@ -54,7 +54,7 @@ echo $ADMIN->box(
 echo $ADMIN->box(
     'Github and Updates',
     'Get LayerBB on Github <a href="https://github.com/InfernoGroupUK/LayerBB">here</a>.<br />
-       To keep up with the updates on LayerBB, you can watch the LayerBB Github repository or visit our website at <a href="https://www.layerbb.com">LayerBB.Com</a> regularly!'
+       To keep up with the updates on LayerBB, you can watch the LayerBB Github repository or visit our website at <a href="https://www.layerbb.com">LayerBB.com</a> regularly!'
 );
 
 //require_once('template/bot.php');
