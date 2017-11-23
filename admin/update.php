@@ -30,7 +30,7 @@ if ($versions != '') {
                 echo '<p><a href="?doUpdate=true&step=2">&raquo; Install Now?</a></p>';
             } // Step 2 Extract zip
             elseif (isset($_GET['doUpdate']) && $_GET['doUpdate'] == true && isset($_GET['step']) && $_GET['step'] == 2) {
-                if (is_file('updates/Iko_update_package_' . $version . '.zip')) {
+                if (is_file('updates/update_package_' . $version . '.zip')) {
                     $output = $ADMIN->zip_extract('updates/update_package_' . $version . '.zip', true, true);
                 } else {
                     $output = '<div class="alert alert-danger" role="alert">Downloaded file not found!</div>';
