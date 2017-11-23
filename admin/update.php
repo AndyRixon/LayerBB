@@ -21,7 +21,7 @@ if ($versions != '') {
             // do update
             // Step 1 downloading the file
             if (isset($_GET['doUpdate']) && $_GET['doUpdate'] == true && isset($_GET['step']) && $_GET['step'] == 1) {
-                $ADMIN->download('http://api.codetana.com/iko/update_packages/Iko_update_package_' . $version . '.zip', true);
+                $ADMIN->download('https://wwww.layerbb.com/update_packages/update_package_' . $version . '.zip', true);
                 echo '<div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
                                 33%
@@ -31,7 +31,7 @@ if ($versions != '') {
             } // Step 2 Extract zip
             elseif (isset($_GET['doUpdate']) && $_GET['doUpdate'] == true && isset($_GET['step']) && $_GET['step'] == 2) {
                 if (is_file('updates/Iko_update_package_' . $version . '.zip')) {
-                    $output = $ADMIN->zip_extract('updates/Iko_update_package_' . $version . '.zip', true, true);
+                    $output = $ADMIN->zip_extract('updates/update_package_' . $version . '.zip', true, true);
                 } else {
                     $output = '<div class="alert alert-danger" role="alert">Downloaded file not found!</div>';
                 }
