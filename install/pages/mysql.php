@@ -111,7 +111,6 @@ if (isset($_POST['submit'])) {
 
             $stmt = $MYSQL->prepare("INSERT INTO " . $mysql_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand);");
             $stmt->bindParam(':sand', $sand);
-            $stmt->bindParam(':blue', $blue);
             $stmt->execute();
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "poll` (`id` int(11) NOT NULL AUTO_INCREMENT, `question` varchar(255) NOT NULL, `thread_id` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;");
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "poll_answers` (`id` int(11) NOT NULL AUTO_INCREMENT, `poll_id` int(11) NOT NULL, `answer` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;");
