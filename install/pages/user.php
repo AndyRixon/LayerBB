@@ -33,7 +33,7 @@ require_once('../../applications/functions.php');
                 ));
 
                 $MYSQL->query("INSERT INTO `{prefix}users` (`username`, `user_password`, `user_email`, `date_joined`, `user_group`) VALUES (:username, :user_password, :user_email, :date_joined, :user_group);");
-                echo '<div class="alert alert-success">LayerBB has been successfully installed! Please delete the installation folder.</div>';
+                echo '<div class="alert alert-success">LayerBB has been successfully installed! Please delete the installation folder.<br /><b><a href="../index.php">Click here to go to your new forums!</a></b></div>';
 
             }
         } catch (Exception $e) {

@@ -64,8 +64,12 @@ if ($check['php'] === true && $check['chmods'] === true) {
             if ($check['php'] === false) {
                 echo '<br />Your current PHP version is lower than the recommended version.';
             }
-            if ($check['chmods'] === false) {
-                echo '<br />Please change the chmod of the \'<em>config.php</em>\' file in the \'<em>applications</em>\' folder to <em>777</em>.';
+            if (file_exists('../../applications/config.php')) {
+                if ($check['chmods'] === false) {
+                    echo '<br />Please change the chmod of the \'<em>config.php</em>\' file in the \'<em>applications</em>\' folder to <em>777</em>.';
+                }
+            } else {
+                echo "<br />Please rename the <em>'config.php.new'</em> to <em>'config.php'</em> in the '<em>applications</em>' folder.";
             }
             ?>
         </div>
