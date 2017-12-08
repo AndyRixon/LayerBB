@@ -8,7 +8,8 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-echo '<title>LayerBB Updater!</title>';
+define('VERSION', '1.0.0 BETA 4');
+echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once 'applications/config.php';
 $new_mysql_host = MYSQL_HOST;
 $new_mysql_login = MYSQL_USERNAME;
@@ -43,7 +44,7 @@ define(\'MYSQL_PORT\', 3306);
  * Iko Local Details
  */
 define(\'SITE_URL\', "'.$new_site_url.'");//Without the ending "/"
-define(\'LayerBB_VERSION\', \'1.0.0 BETA 3\');
+define(\'LayerBB_VERSION\', "'. VERSION .'");
 define(\'LAYER_SESSION_TIMEOUT\', 31536000);//In seconds.
 define(\'USER_PASSWORD_HASH_COST\', 10);
 
@@ -71,7 +72,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 		echo 'You have successfully updated LayerBB<br /><strong>Please remember to remove the update.php file!</strong><br /><br /><a href="index.php">Click here to go to your forums!</a>';
 	break;
 	default:
-		echo "Welcome to the Updater Script for LayerBB";
+		echo "Welcome to the Updater Script for LayerBB ". VERSION ."";
 		echo "<div style='padding:10px; background: #ECD5D8; color: #BC2A4D; border:1px solid #BC2A4D;'>Please make sure that the config.php file in your applications directory has writable (777) permissions before continuing.<br /><a href='update.php?step=1'>Click here to start the updater!</a></div>";
 	break;
 }

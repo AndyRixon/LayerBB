@@ -70,6 +70,7 @@ class Library_Parse
             '#\\[code=([^\\]]*?)\\](.*?)\\[/code\\]#uis' => '<pre class="brush: \\1">\\2</pre>',
             // flags
             '#\\[flag\\](.*?)\\[/flag\\]#uis' => '<span class="flag-icon flag-icon-\\1"></span>',
+            '#\\[video\\](.*?)\\[/video\\]#uis' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/\\1" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>',
             // image
             '#\\[img\\](.*?)\\[/img\\]#uis' => function ($matches) {
                 $output = '';
