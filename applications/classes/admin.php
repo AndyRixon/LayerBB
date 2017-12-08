@@ -19,7 +19,8 @@ class LAYER_Admin
             'Configuration',
             array(
                 'General' => SITE_URL . '/admin/general.php',
-                'Usergroups' => SITE_URL . '/admin/usergroups.php'
+                'Usergroups' => SITE_URL . '/admin/usergroups.php',
+                'Members' => SITE_URL . '/admin/members.php'
                 
             )
         );
