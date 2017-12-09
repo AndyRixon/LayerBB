@@ -24,7 +24,7 @@ if ($PGET->g('thread')) {
                     'id', $query['0']['id']
                 )
             );
-            $MYSQL->query("UPDATE {prefix}forum_posts SET origin_node = :origin_node WHERE id = :id");
+            $MYSQL->query("UPDATE {prefix}forum_posts SET origin_node = " . $move_to . " WHERE id = ".$query['0']['id']."");
             $MYSQL->bindMore(
                 array(
                     'origin_node' => $move_to,
@@ -32,7 +32,7 @@ if ($PGET->g('thread')) {
                     'origin_thread' => $query['0']['id']
                 )
             );
-            $MYSQL->query("UPDATE {prefix}forum_posts SET origin_node = :origin_node WHERE origin_thread = :origin_thread");
+            $MYSQL->query("UPDATE {prefix}forum_posts SET origin_node = ".$move_to." WHERE origin_thread = ".$query['0']['id']."");
             $notice = $LAYER->tpl->entity(
                 'success_notice',
                 'content',

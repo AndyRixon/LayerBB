@@ -67,6 +67,7 @@
         "report_post": "\r\n<a href=\"%url%\" class=\"btn btn-primary btn-sm\"><i class=\"fa fa-exclamation-circle\"><\/i> Report<\/a>\r\n",
         "mod_tools": "\r\n<a href=\"%stick_thread_url%\">%stick_thread%<\/a> | <a href=\"%close_thread_url%\">%close_thread%<\/a> | <a\r\n    href=\"%edit_post_url%\">Edit Post<\/a> | <a href=\"%delete_post_url%\">Delete Thread<\/a>\r\n<br\/>\r\n%move_thread_form%\r\n",
         "mod_tools_posts": "\r\n<a href=\"%edit_post_url%\">Edit Post<\/a> | <a href=\"%delete_post_url%\">Delete Post<\/a>\r\n",
-        "mod_tools_profile": "\r\n<a href=\"%ban_user_url%\" class=\"btn btn-primary\">%ban_user%<\/a>\r\n"
+        "mod_tools_profile": "\r\n<a href=\"%ban_user_url%\" class=\"btn btn-primary\">%ban_user%<\/a>\r\n",
+        "admin_tools_profile": "\r\n<a href=\"%edit_user_url%\" class=\"btn btn-primary\">%edit_user%<\/a>\r\n"
     }
 }
