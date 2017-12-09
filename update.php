@@ -17,6 +17,16 @@ $new_mysql_pass = MYSQL_PASSWORD;
 $new_mysql_database = MYSQL_DATABASE;
 $new_db_prefix = MYSQL_PREFIX;
 $new_site_url = SITE_URL;
+echo '<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<br /><br /><div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">LayerBB '. VERSION .' Updater!</h3>
+  </div>
+  <div class="panel-body">';
 switch($_GET['step']) {
 	case '1':
 		echo 'The updater is currently updating the config.php file. Please wait...';
@@ -66,14 +76,39 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 
 		fwrite($ourFileHandle, $stringData);
 		fclose($ourFileHandle);
-		echo '<br />The updater has successfully updated the config.php file.<br /><a href="update.php?step=2">Click here to continue with the update!</a>';
+		echo '<br />The updater has successfully updated the config.php file.<br /><a href="update.php?step=2" class="btn btn-default" role="button">Click here to continue with the update!</a>';
 	break;
 	case '2':
-		echo 'You have successfully updated LayerBB<br /><strong>Please remember to remove the update.php file!</strong><br /><br /><a href="index.php">Click here to go to your forums!</a>';
+	$dsn = 'mysql:dbname=' . $new_mysql_database . ';host=' . $new_mysql_host;
+
+            try {
+                $MYSQL = new PDO($dsn, $new_mysql_login, $new_mysql_pass);
+            } catch (PDOException $e) {
+                throw new Exception('Connection failed: ' . $e->getMessage());
+            }
+		$MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
+		$MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
+		$sand = file_get_contents('install/assets/theme-json/sand.json');
+
+        $stmt = $MYSQL->prepare("INSERT INTO " . $new_db_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand);");
+        $stmt->bindParam(':sand', $sand);
+        $stmt->execute();
+
+
+		echo 'The updater has updated your theme.<br /><a href="update.php?step=3" class="btn btn-default" role="button">Click here to continue with the update!</a>';
+	break;
+	case '3':
+		echo '<div class="alert alert-success" role="alert">You have successfully updated LayerBB<br /><strong>Please remember to remove the update.php file and install folder!</strong><br /><br /><a href="index.php" class="btn btn-default" role="button">Click here to go to your forums!</a></div>';
 	break;
 	default:
-		echo "Welcome to the Updater Script for LayerBB ". VERSION ."";
-		echo "<div style='padding:10px; background: #ECD5D8; color: #BC2A4D; border:1px solid #BC2A4D;'>Please make sure that the config.php file in your applications directory has writable (777) permissions before continuing.<br /><a href='update.php?step=1'>Click here to start the updater!</a></div>";
+		echo "Welcome to the Updater Script for <b>LayerBB ". VERSION ."</b>";
+		echo '<div class="alert alert-danger" role="alert">Please make sure that the config.php file in your applications directory has writable (777) permissions before continuing.<br /><a href="update.php?step=1" class="btn btn-default" role="button">Click here to start the updater!</a></div>';
 	break;
 }
+echo '</div>
+  <div class="panel-footer">&copy; <a href="https://www.layerbb.com" target="_blank">LayerBB 2017</a></div>
+</div>
+</div>
+  <div class="col-md-4"></div>
+</div>';
 ?>

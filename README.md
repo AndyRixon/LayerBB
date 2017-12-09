@@ -1,4 +1,4 @@
-# LayerBB 1.0.0 BETA 3
+# LayerBB 1.0.0 BETA 4
 LayerBB is a small yet feature rich community software which enables you to quickly and easily start your own community. It offers great flexibility and easily customisable.
 ## Installation
 1. Download the latest release from GitHub: https://github.com/InfernoGroupUK/LayerBB/releases
@@ -14,7 +14,7 @@ If you had issues during installation, please consult the "Help Me!" section of 
 ## Upgrading
 1. Download the latest release from GitHub: https://github.com/InfernoGroupUK/LayerBB/releases
 2. Unzip the archive you downloaded to your computer using 7-Zip or WinRar.
-3. Upload the contents of the "upload" folder using an FTP client such as FileZilla (except install directory).
+3. Upload the contents of the "upload" folder using an FTP client such as FileZilla.
 4. Using your browser, navigate to the installation script (I.E: http://yourdomain.com/update.php).
 5. Follow the instructions that you see on your screen.
 6. There is no step 6, LayerBB should now of updated successfully.
