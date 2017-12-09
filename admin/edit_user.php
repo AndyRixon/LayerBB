@@ -101,22 +101,7 @@ if ($PGET->g('id')) {
             }
         }
 
-        if ($query['0']['node_type'] !== 1) {
-            $in_c = '&' . $query['0']['parent_node'];
-        } else {
-            $in_c = $query['0']['in_category'];
-        }
-        $node_id = $query['0']['id'];
-
-        $MYSQL->bind('node_id', $query['0']['id']);
-        $qry_lbl = $MYSQL->query('SELECT * FROM {prefix}labels WHERE node_id = :node_id');
-        $labels = '';
-        foreach ($qry_lbl as $label) {
-            $labels .= $label['label'];
-            $labels .= "\n";
-        }
         $token = NoCSRF::generate('csrf_token');
-        $lock_checked = ($query['0']['node_locked'] == "1") ? ' checked' : '';
         echo $ADMIN->box(
             'Edit User (' . $query['0']['username'] . ') <p class="pull-right"><a href="' . SITE_URL . '/admin/members.php" class="btn btn-default btn-xs">Back</a></p>',
             $notice .
@@ -124,10 +109,17 @@ if ($PGET->g('id')) {
                 <input type="hidden" name="csrf_token" value="' . $token . '">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" value="' . $query['0']['username'] . '" class="form-control" />
+                <label for="email">Email Address</label>
+                <input type="text" name="email" id="email" value="' . $query['0']['user_email'] . '" class="form-control" />
+                <label for="usermsg">User Message</label>
+                <input type="text" name="usermsg" id="usermsg" value="' . $query['0']['user_message'] . '" class="form-control" />
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" value="' . $query['0']['location'] . '" class="form-control" />
                 <label for="usergroup">Usergroup</label><br />
                 <select name="usergroup" id="usergroup" style="width:100%;">
+                <option value="' . $query['0']['user_group'] . '" selected>Dont Change</option>
                 ' . list_groups() . '
-                </select><br />
+                </select><br /><br />
                 <input type="submit" name="update" value="Save Changes" class="btn btn-default" />
             </form>',
             '',
