@@ -17,13 +17,13 @@ if ($PGET->g('notice')) {
      switch ($PGET->g('notice')) {
          case "create_success":
              $notice .= $ADMIN->alert(
-                 'Usergroup has been created!',
+                 'Member has been created!',
                  'success'
              );
              break;
          case "edit_success":
              $notice .= $ADMIN->alert(
-                 'Usergroup has been successfully edited!',
+                 'Member has been successfully edited!',
                  'success'
              );
              break;

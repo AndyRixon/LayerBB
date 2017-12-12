@@ -37,56 +37,26 @@ if ($PGET->g('id')) {
             try {
                 NoCSRF::check('csrf_token', $_POST);
 
-                $title = clean($_POST['node_title']);
-                $desc = (!$_POST['node_desc']) ? '' : clean($_POST['node_desc']);
-                $locked = (isset($_POST['lock_node'])) ? '1' : '0';
-                $labels = trim($_POST['labels']);
-                $labels = explode(PHP_EOL, $labels);
-                $all_u = (isset($_POST['allowed_ug'])) ? implode(',', $_POST['allowed_ug']) : '0';
+                $username = clean($_POST['username']);
+                $email = clean($_POST['email']);
+                $usermsg = clean($_POST['usermsg']);
+                $usergroup = clean($_POST['usergroup']);
 
-                if (!$title) {
+                if (!$username) {
                     throw new Exception ('All fields are required!');
                 } else {
-                    if (substr_count($_POST['node_parent'], '&') > 0) {
-                        $explode = explode('&', $_POST['node_parent']);
-                        $parent = node($explode['1']);
-                        $in_category = $parent['in_category'];
-                        $node_type = 2;
-                        $parent_node = $parent['id'];
-                    } else {
-                        $in_category = clean($_POST['node_parent']);
-                        $node_type = 1;
-                        $parent_node = 0;
-                    }
-                    $MYSQL->bind('node_name', $title);
-                    $MYSQL->bind('name_friendly', title_friendly($title));
-                    $MYSQL->bind('node_desc', $desc);
-                    $MYSQL->bind('node_locked', $locked);
-                    $MYSQL->bind('in_category', $in_category);
-                    $MYSQL->bind('node_type', $node_type);
-                    $MYSQL->bind('parent_node', $parent_node);
-                    $MYSQL->bind('allowed_usergroups', $all_u);
+                    $MYSQL->bind('username', $username);
+                    $MYSQL->bind('email', $email);
+                    $MYSQL->bind('usermsg', $usermsg);
+                    $MYSQL->bind('usergroup', $usergroup);
                     $MYSQL->bind('id', $id);
                     try {
-                        $u_query = $MYSQL->query('UPDATE {prefix}forum_node SET node_name = :node_name,
-                                                                           name_friendly = :name_friendly,
-                                                                           node_desc = :node_desc,
-                                                                           node_locked = :node_locked,
-                                                                           in_category = :in_category,
-                                                                           node_type = :node_type,
-                                                                           parent_node = :parent_node,
-                                                                           allowed_usergroups = :allowed_usergroups
+                        $u_query = $MYSQL->query('UPDATE {prefix}users SET username = :username,
+                                                                           user_email = :email,
+                                                                           user_message = :usermsg,
+                                                                           user_group = :usergroup
                                                                            WHERE id = :id');
-                        $MYSQL->bind('node_id', $id);
-                        $MYSQL->query("DELETE FROM {prefix}labels WHERE node_id = :node_id");
-                        if (!empty($labels) && $labels[0] != "") {
-                            foreach ($labels as $label) {
-                                $MYSQL->bind('node_id', $id);
-                                $MYSQL->bind('label', $label);
-                                $MYSQL->query("INSERT INTO {prefix}labels (node_id, label) VALUES (:node_id, :label)");
-                            }
-                        }
-                        redirect(SITE_URL . '/admin/manage_node.php/notice/edit_success');
+                        redirect(SITE_URL . '/admin/members.php/notice/edit_success');
                     } catch (mysqli_sql_exception $e) {
                         throw new Exception ('Error updating node.');
                     }
@@ -113,8 +83,6 @@ if ($PGET->g('id')) {
                 <input type="text" name="email" id="email" value="' . $query['0']['user_email'] . '" class="form-control" />
                 <label for="usermsg">User Message</label>
                 <input type="text" name="usermsg" id="usermsg" value="' . $query['0']['user_message'] . '" class="form-control" />
-                <label for="location">Location</label>
-                <input type="text" name="location" id="location" value="' . $query['0']['location'] . '" class="form-control" />
                 <label for="usergroup">Usergroup</label><br />
                 <select name="usergroup" id="usergroup" style="width:100%;">
                 <option value="' . $query['0']['user_group'] . '" selected>Dont Change</option>

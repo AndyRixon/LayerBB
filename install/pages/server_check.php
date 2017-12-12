@@ -58,20 +58,22 @@ if ($check['php'] === true && $check['chmods'] === true) {
     ?>
     <div class="panel-body">
         <div class="alert alert-danger">
-            <strong>Oh snap!</strong>
-            LayerBB can't be installed on your system.
+            <b>LayerBB can't be installed on your system.</b><br />
+            Please check the errors below and fix them.
+            <ul>
             <?php
             if ($check['php'] === false) {
-                echo '<br />Your current PHP version is lower than the recommended version.';
+                echo '<li>Your current PHP version is lower than the recommended version.</li>';
             }
-            if (file_exists('../../applications/config.php')) {
-                if ($check['chmods'] === false) {
-                    echo '<br />Please change the chmod of the \'<em>config.php</em>\' file in the \'<em>applications</em>\' folder to <em>777</em>.';
-                }
-            } else {
-                echo "<br />Please rename the <em>'config.php.new'</em> to <em>'config.php'</em> in the '<em>applications</em>' folder.";
+            if (file_exists('../../applications/config.php.new')) {
+                echo "<li>Please rename the <em>'config.php.new'</em> to <em>'config.php'</em> in the '<em>applications</em>' folder.</li>";
             }
+            if ($check['chmods'] === false) {
+                echo '<li>Please change the chmod of the \'<em>config.php</em>\' file in the \'<em>applications</em>\' folder to <em>777</em>.</li>';
+            }
+           
             ?>
+        </ul>
         </div>
     </div>
 <?php
@@ -88,7 +90,7 @@ if ($check['php'] === true && $check['chmods'] === true) {
     </thead>
     <tr>
         <td>Operating system</td>
-        <td><span class="label label-default"></span></td>
+        <td><span class="label label-default">Linux</span></td>
         <td><span class="label label-<?php echo $check['OS_css']; ?>"><?php echo $check['OS']; ?></span></td>
     </tr>
     <tr>
