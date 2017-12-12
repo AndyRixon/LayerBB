@@ -18,22 +18,22 @@ class LAYER_Admin
         $this->addNav(
             'Configuration',
             array(
-                'General' => SITE_URL . '/admin/general.php',
-                'Extensions' => SITE_URL . '/admin/extensions.php',
-                'Themes' => SITE_URL . '/admin/theme.php'
+                'General Settings' => SITE_URL . '/admin/general.php',
+                'Manage Extensions' => SITE_URL . '/admin/extensions.php',
+                'Manage Themes' => SITE_URL . '/admin/theme.php'
             )
         );
         $this->addNav(
-            'Members',
+            'Member Management',
             array(
-                'Usergroups' => SITE_URL . '/admin/usergroups.php',
-                'Members' => SITE_URL . '/admin/members.php',
+                'Manage Usergroups' => SITE_URL . '/admin/usergroups.php',
+                'Manage Members' => SITE_URL . '/admin/members.php',
                 'Mass Email Members' => SITE_URL . '/admin/massemail.php'
 
             )
         );
         $this->addNav(
-            'Forum',
+            'Forum Management',
             array(
                 'Manage Categories' => SITE_URL . '/admin/manage_category.php',
                 'Manage Nodes' => SITE_URL . '/admin/manage_node.php'
