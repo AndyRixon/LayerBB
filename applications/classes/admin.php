@@ -19,9 +19,17 @@ class LAYER_Admin
             'Configuration',
             array(
                 'General' => SITE_URL . '/admin/general.php',
+                'Extensions' => SITE_URL . '/admin/extensions.php',
+                'Themes' => SITE_URL . '/admin/theme.php'
+            )
+        );
+        $this->addNav(
+            'Members',
+            array(
                 'Usergroups' => SITE_URL . '/admin/usergroups.php',
-                'Members' => SITE_URL . '/admin/members.php'
-                
+                'Members' => SITE_URL . '/admin/members.php',
+                'Mass Email Members' => SITE_URL . '/admin/massemail.php'
+
             )
         );
         $this->addNav(
@@ -29,13 +37,6 @@ class LAYER_Admin
             array(
                 'Manage Categories' => SITE_URL . '/admin/manage_category.php',
                 'Manage Nodes' => SITE_URL . '/admin/manage_node.php'
-            )
-        );
-        $this->addNav(
-            'Customization',
-            array(
-                'Extensions' => SITE_URL . '/admin/extensions.php',
-                'Themes' => SITE_URL . '/admin/theme.php'
             )
         );
     }
