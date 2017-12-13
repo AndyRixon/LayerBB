@@ -167,7 +167,7 @@ echo $ADMIN->box(
        <input type="checkbox" name="register_enable" value="1" id="reg_enable" ' . $reg_check . ' /> <label for="reg_enable">Enable Register</label><br />
        <input type="checkbox" name="post_merge" value="1" id="post_merge" ' . $merge_check . ' /> <label for="post_merge">Merge Posts (<a href="#" title="Merge consecutive posts by the same user." id="tooltip">?</a>)</label><br />
        <br />
-       <input type="checkbox" name="site_enable" value="1" id="site_enable" ' . $site_enable. ' /> <label for="site_enable">Forum Enabled(<a href="#" title="Is the forums enabled." id="tooltip">?</a>)</label><br />
+       <input type="checkbox" name="site_enable" value="1" id="site_enable" ' . $site_enable. ' /> <label for="site_enable">Forum Enabled (<a href="#" title="Allows you to enable or diable your forums." id="tooltip">?</a>)</label><br />
        <br />
        <label for="default_language">Default Languge</label><br />
        <select name="default_language" id="Default_language">

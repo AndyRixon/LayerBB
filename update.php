@@ -96,7 +96,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
         $stmt->execute();
 
 
-		echo 'The updater has updated your theme.<br /><a href="update.php?step=3" class="btn btn-default" role="button">Click here to continue with the update!</a>';
+		echo 'The updater has updated your database.<br /><a href="update.php?step=3" class="btn btn-default" role="button">Click here to continue with the update!</a>';
 	break;
 	case '3':
 		echo '<div class="alert alert-success" role="alert">You have successfully updated LayerBB<br /><strong>Please remember to remove the update.php file and install folder!</strong><br /><br /><a href="index.php" class="btn btn-default" role="button">Click here to go to your forums!</a></div>';
