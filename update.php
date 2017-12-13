@@ -86,6 +86,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
             } catch (PDOException $e) {
                 throw new Exception('Connection failed: ' . $e->getMessage());
             }
+        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "generic` ADD `site_enable` INT(1) NOT NULL DEFAULT '1' AFTER `number_subs`;");
 		$MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
 		$MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
 		$sand = file_get_contents('install/assets/theme-json/sand.json');

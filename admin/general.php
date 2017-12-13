@@ -42,7 +42,7 @@ if (isset($_POST['update'])) {
         $site_rules = $_POST['board_rules'];
         $enable_reg = (isset($_POST['register_enable'])) ? '1' : '0';
         $post_merge = (isset($_POST['post_merge'])) ? '1' : '0';
-        $flatui_ena = (isset($_POST['flatui_enable'])) ? '1' : '0';
+        //$flatui_ena = (isset($_POST['flatui_enable'])) ? '1' : '0';
         $number_subs = $_POST['number_subs'];
 
         $fb_app_id = $_POST['fb_app_id'];
@@ -52,6 +52,7 @@ if (isset($_POST['update'])) {
         $rcap_public = $_POST['rcap_public'];
         $rcap_private = $_POST['rcap_private'];
         $enable_rcap = (isset($_POST['enable_recaptcha'])) ? '2' : '1';
+        $site_enable = (isset($_POST['site_enable'])) ? '1' : '0';
 
         $smtp_port = $_POST['smtp_port'];
         $smtp_user = $_POST['smtp_user'];
@@ -101,7 +102,8 @@ if (isset($_POST['update'])) {
                 'smtp_port' => $smtp_port,
                 'smtp_username' => $smtp_user,
                 'smtp_password' => $smtp_pass,
-                'flat_ui_admin' => $flatui_ena
+                'site_enable' => $site_enable,
+               // 'flat_ui_admin' => $flatui_ena
             ));
 
             try {
@@ -124,10 +126,10 @@ if (isset($_POST['update'])) {
                                                             smtp_port = :smtp_port,
                                                             smtp_username = :smtp_username,
                                                             smtp_password = :smtp_password,
-                                                            flat_ui_admin = :flat_ui_admin
+                                                            site_enable = :site_enable
                                                             WHERE id = 1');
                 $notice .= $ADMIN->alert(
-                    'Informations saved!',
+                    'General settings saved. You will need to refresh this page for them to show here.',
                     'success'
                 );
             } catch (mysqli_sql_exception $e) {
@@ -150,7 +152,8 @@ echo '<form action="" method="POST">';
 
 $reg_check    = ($LAYER->data['register_enable'] == 1) ? ' CHECKED' : '';
 $merge_check  = ($LAYER->data['post_merge'] == 1) ? ' CHECKED' : '';
-$flatui_check = ($LAYER->data['flat_ui_admin'])? 'CHECKED' : '';
+$site_enable  = ($LAYER->data['site_enable'] == 1) ? ' CHECKED' : '';
+//$flatui_check = ($LAYER->data['flat_ui_admin'])? 'CHECKED' : '';
 echo $ADMIN->box(
     'General Settings',
     $notice .
@@ -163,7 +166,8 @@ echo $ADMIN->box(
        <input type="text" class="form-control" name="number_subs" id="number_subs" value="' . $LAYER->data['number_subs'] . '" />
        <input type="checkbox" name="register_enable" value="1" id="reg_enable" ' . $reg_check . ' /> <label for="reg_enable">Enable Register</label><br />
        <input type="checkbox" name="post_merge" value="1" id="post_merge" ' . $merge_check . ' /> <label for="post_merge">Merge Posts (<a href="#" title="Merge consecutive posts by the same user." id="tooltip">?</a>)</label><br />
-       <input type="checkbox" name="flatui_enable" value="1" id="flatui_enable" ' . $flatui_check . ' /> <label for="flatui_enable">Enable Flat UI for ACP (<a href="#" title="Use the old FlatUI interface on the administration panel." id="tooltip">?</a>)</label><br />
+       <br />
+       <input type="checkbox" name="site_enable" value="1" id="site_enable" ' . $site_enable. ' /> <label for="site_enable">Forum Enabled(<a href="#" title="Is the forums enabled." id="tooltip">?</a>)</label><br />
        <br />
        <label for="default_language">Default Languge</label><br />
        <select name="default_language" id="Default_language">

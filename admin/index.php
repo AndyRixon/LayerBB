@@ -25,6 +25,12 @@ if ($versions != '') {
     }
 }
 
+if ($LAYER->data['site_enable'] == 0) {
+    echo "<div class='alert alert-danger' role='alert'>
+  <b>Forum Offline:</b> Your forum has been disabled, this can be changed by going to the <a href='general.php'>general settings</a>.
+</div>";
+}
+
 if (file_exists('../install')) {
     echo "<div class='alert alert-danger' role='alert'>
   <b>Security Alert:</b> You have not deleted the install directory, this could potentially impact the security of your forum. Please remove the install directory!

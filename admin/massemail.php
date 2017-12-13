@@ -70,8 +70,7 @@ if ($PGET->g('notice')) {
                 <label for="subject">Subject</label>
                 <input type="text" name="subject" id="subject" value="" class="form-control" />
                 <label for="content">Email Content</label>
-                <textarea name="content" id="content" class="form-control" style="min-height:250px;"></textarea>
-                <br /><br />
+                <textarea name="content" id="content" class="form-control" style="min-height:250px;"></textarea><br />
                 <input type="submit" name="send" value="Send Email" class="btn btn-default" />
             </form>',
             '',

@@ -3,6 +3,10 @@
 define('BASEPATH', 'Forum');
 require_once('applications/wrapper.php');
 
+if($LAYER->data['site_enable'] == 0) {
+    redirect(SITE_URL . '/offline.php');
+}
+
 if (!$LAYER->sess->isLogged) {
     redirect(SITE_URL);
 }//Checks if user has permission to create a thread.

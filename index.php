@@ -5,6 +5,10 @@ if(!file_exists('applications/config.php')){
 define('BASEPATH', 'Forum');
 require_once('applications/wrapper.php');
 
-redirect('forum.php');
+if($LAYER->data['site_enable'] == 1) {
+	redirect(SITE_URL . '/forum.php');
+} else {
+	redirect(SITE_URL . '/offline.php');
+}
 
 ?>
