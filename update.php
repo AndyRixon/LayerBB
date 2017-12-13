@@ -8,7 +8,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.0.0 BETA 4');
+define('VERSION', '1.0.0');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once 'applications/config.php';
 $new_mysql_host = MYSQL_HOST;
@@ -51,7 +51,7 @@ define(\'MYSQL_PREFIX\', "'.$new_db_prefix.'");
 define(\'MYSQL_PORT\', 3306);
 
 /*
- * Iko Local Details
+ * LayerBB Local Details
  */
 define(\'SITE_URL\', "'.$new_site_url.'");//Without the ending "/"
 define(\'LayerBB_VERSION\', "'. VERSION .'");

@@ -28,7 +28,8 @@ if ($PGET->g('notice')) {
                 NoCSRF::check('csrf_token', $_POST);
 
                 $subject = clean($_POST['subject']);
-                $content = clean($_POST['content']);
+                $username = $s['user_email'];
+                $emailcontent = clean($_POST['content']);
 
                 if (!$subject) {
                     throw new Exception ('All fields are required!');
@@ -39,6 +40,7 @@ if ($PGET->g('notice')) {
                         $sitename = $LAYER->data['site_name'];
                         $siteemail = $LAYER->data['site_email'];
                         foreach ($query as $s) {
+                            $content = 'Hey ' . $s['username'] . ',' . "\r\n\r\n" . $emailcontent;
                             $headers = 'From: '.$sitename.' <'.$siteemail.'>' . "\r\n" .
                                        'Reply-To: '.$siteemail . "\r\n" .
                                        'X-Sender: '.$siteemail . "\r\n" .
