@@ -10,6 +10,17 @@ if (!$LAYER->perm->check('access_administration')) {
 echo $ADMIN->template('top');
 $notice = '';
 
+if ($PGET->g('notice')) {
+     switch ($PGET->g('notice')) {
+         case "edit_success":
+             $notice .= $ADMIN->alert(
+                 'General settings saved. You will need to refresh this page for them to show here.',
+                 'success'
+             );
+             break;
+     }
+ }
+
 function languagePackages()
 {
     global $LAYER;
@@ -128,10 +139,7 @@ if (isset($_POST['update'])) {
                                                             smtp_password = :smtp_password,
                                                             site_enable = :site_enable
                                                             WHERE id = 1');
-                $notice .= $ADMIN->alert(
-                    'General settings saved. You will need to refresh this page for them to show here.',
-                    'success'
-                );
+                redirect(SITE_URL . '/admin/general.php/notice/edit_success');
             } catch (mysqli_sql_exception $e) {
                 throw new Exception ('Error saving information. Try again later.');
             }
