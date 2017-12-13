@@ -103,7 +103,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 	break;
 	default:
 		echo "Welcome to the Updater Script for <b>LayerBB ". VERSION ."</b>";
-		echo '<div class="alert alert-danger" role="alert">Please make sure that the config.php file in your applications directory has writable (777) permissions before continuing.<br /><a href="update.php?step=1" class="btn btn-default" role="button">Click here to start the updater!</a></div>';
+		echo '<div class="alert alert-danger" role="alert">Please ensure that you are currently running on the previous version of LayerBB, otherwise you may break your forum. Always take a backup.<br /><br />Please make sure that the config.php file in your applications directory has writable (777) permissions before continuing.<br /><a href="update.php?step=1" class="btn btn-default" role="button">Click here to start the updater!</a></div>';
 	break;
 }
 echo '</div>

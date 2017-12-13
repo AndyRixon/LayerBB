@@ -147,6 +147,8 @@ if ($PGET->s(true)) {
             }
         }
 
+        $results .= '<div class="alert alert-info" role="alert">' . $query['0']['node_desc'] . '</div>';
+
         $results .= $LAYER->tpl->entity(
             'forum_listings_node_threads',
             array(
