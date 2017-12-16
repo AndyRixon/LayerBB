@@ -51,25 +51,15 @@ if (isset($_POST['forget'])) {
 
             $successful = false;
             if ($MYSQL->query("INSERT INTO {prefix}password_reset_requests (user, reset_token, request_time) VALUES (:user, :reset_token, :request_time)") > 0) {
-                $successful = $MAIL->setTo($email, $query['0']['username'])
-                    ->setSubject($LANG['email']['forgot_password']['subject'])
-                    ->addGenericHeader('X-Mailer', 'PHP/' . phpversion())
-                    ->addGenericHeader('Content-Type', 'text/html; charset="utf-8"')
-                    ->setMessage(
-                        str_replace(
-                            array(
-                                '%site_name%',
-                                '%token_url%'
-                            ),
-                            array(
-                                $LAYER->data['site_name'],
-                                SITE_URL . '/members.php/cmd/resetpassword/token/' . urlencode($reset_token)
-                            ),
-                            $LANG['email']['forgot_password']['content']
-                        )
-                    )
-                    ->setWrap(100)
-                    ->send();
+            	$sitename = $LAYER->data['site_name'];
+                $siteemail = $LAYER->data['site_email'];
+                $subject = 'Reset your password request';
+                $emailcontent = 'Hey ' . $query['0']['username'] . ', You have requested to reset your password on ' . $sitename . ', please follow the link below and follow the on screen instructions.' . "\r\n\r\n" . SITE_URL . '/members.php/cmd/resetpassword/token/' . urlencode($reset_token) . "\r\n\r\n" . 'If this wasnt you, please ignore this email.';
+                $headers = 'From: '.$sitename.' <'.$siteemail.'>' . "\r\n" .
+                            'Reply-To: '.$siteemail . "\r\n" .
+                            'X-Sender: '.$siteemail . "\r\n" .
+                             'X-Mailer: PHP/' . phpversion();
+                $successful = mail($email, $subject, $emailcontent, $headers);
             } else {
                 $successful = false;
             }
