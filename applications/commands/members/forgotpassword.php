@@ -54,7 +54,7 @@ if (isset($_POST['forget'])) {
             	$sitename = $LAYER->data['site_name'];
                 $siteemail = $LAYER->data['site_email'];
                 $subject = 'Reset your password request';
-                $emailcontent = 'Hey ' . $query['0']['username'] . ', You have requested to reset your password on ' . $sitename . ', please follow the link below and follow the on screen instructions.' . "\r\n\r\n" . SITE_URL . '/members.php/cmd/resetpassword/token/' . urlencode($reset_token) . "\r\n\r\n" . 'If this wasnt you, please ignore this email.';
+                $emailcontent = 'Hey ' . $query['0']['username'] . ', You have requested to reset your password on ' . $sitename . ', please follow the link below and follow the on screen instructions.' . "\r\n\r\n" . SITE_URL . '/members.php/cmd/resetpassword/token/' . urlencode($token_hash) . "\r\n\r\n" . 'If this wasnt you, please ignore this email.';
                 $headers = 'From: '.$sitename.' <'.$siteemail.'>' . "\r\n" .
                             'Reply-To: '.$siteemail . "\r\n" .
                             'X-Sender: '.$siteemail . "\r\n" .

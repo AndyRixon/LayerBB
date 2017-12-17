@@ -53,7 +53,7 @@ if( $PGET->g('theme') ) {
                         'success'
                     );
                 } else {
-                    throw new Exception ('Error editing theme.');
+                    throw new Exception ('Unable to save theme!');
                 }
 
             }catch( Exception $e ) {
