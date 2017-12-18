@@ -105,17 +105,17 @@
 }
 
 .btn-success {
-    background-color: #8bc34a;
+    background-color: #817F7F;
 }
 
 .btn-success:hover,
 .btn-success:focus {
-    background-color: #7cb342;
+    background-color: #2D3260;
 }
 
 .btn-success:active,
 .btn-success.active {
-    background-color: #689f38;
+    background-color: #2D3260;
 }
 
 .btn-success.disabled,

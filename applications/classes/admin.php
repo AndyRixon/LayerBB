@@ -24,11 +24,11 @@ class LAYER_Admin
             )
         );
         $this->addNav(
-            'Member Management',
+            'User Management',
             array(
                 'Manage Usergroups' => SITE_URL . '/admin/usergroups.php',
-                'Manage Members' => SITE_URL . '/admin/members.php',
-                'Mass Email Members' => SITE_URL . '/admin/massemail.php'
+                'Manage Users' => SITE_URL . '/admin/members.php',
+                'Mass Email Users' => SITE_URL . '/admin/massemail.php'
 
             )
         );
