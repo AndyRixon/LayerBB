@@ -40,7 +40,17 @@ if ($PGET->g('notice')) {
                         $sitename = $LAYER->data['site_name'];
                         $siteemail = $LAYER->data['site_email'];
                         foreach ($query as $s) {
-                            $content = 'Hey ' . $s['username'] . ',' . "\r\n\r\n" . $emailcontent;
+                            $datejoined = date('l jS \of F Y', $s['date_joined']);
+                            $replace = array( 
+                                '%siteurl%' => SITE_URL, 
+                                '%sitename%' => $LAYER->data['site_name'],
+                                '%username%' => $s['username'],
+                                '%datejoined%' => $datejoined,
+                                '%profileurl%' => SITE_URL . '/members.php/cmd/user/id/' . $s['id']
+                            ); 
+
+                            $emailreplace = strtr($emailcontent,$replace); 
+                            $content = $emailreplace;
                             $headers = 'From: '.$sitename.' <'.$siteemail.'>' . "\r\n" .
                                        'Reply-To: '.$siteemail . "\r\n" .
                                        'X-Sender: '.$siteemail . "\r\n" .
@@ -50,7 +60,7 @@ if ($PGET->g('notice')) {
                         }
                         redirect(SITE_URL . '/admin/massemail.php/notice/sent');
                     } catch (mysqli_sql_exception $e) {
-                        throw new Exception ('Error updating node.');
+                        throw new Exception ('Error sending email. Please try again.');
                     }
 
                 }
@@ -67,14 +77,49 @@ if ($PGET->g('notice')) {
         echo $ADMIN->box(
             'Send Mass Email',
             $notice .
-            '<form action="" method="POST">
+            '<div class="row">
+  <div class="col-md-8"><form action="" method="POST">
                 <input type="hidden" name="csrf_token" value="' . $token . '">
                 <label for="subject">Subject</label>
                 <input type="text" name="subject" id="subject" value="" class="form-control" />
                 <label for="content">Email Content</label>
-                <textarea name="content" id="content" class="form-control" style="min-height:250px;"></textarea><br />
+                <textarea id="editor" name="content" class="form-control" style="min-height:250px;"></textarea><br />
+                <div class="alert alert-info" role="alert"><b>Please Note:</b> HTML Tags do not work, line breaks and urls are automatically converted!</div>
                 <input type="submit" name="send" value="Send Email" class="btn btn-default" />
-            </form>',
+            </form></div>
+  <div class="col-md-4"><div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Available Shortcodes</h3>
+  </div>
+  <div class="panel-body">
+  <li class="list-group-item">
+    <span class="badge">%siteurl%</span>
+    Site URL<br />
+    <small>Displays the site URL.</small>
+  </li>
+  <li class="list-group-item">
+    <span class="badge">%sitename%</span>
+    Site Name<br />
+    <small>Displays the site name.</small>
+  </li>
+  <li class="list-group-item">
+    <span class="badge">%username%</span>
+    Username<br />
+    <small>Displays the members username.</small>
+  </li>
+  <li class="list-group-item">
+    <span class="badge">%profileurl%</span>
+    Profile URL<br />
+    <small>Displays the members profile URL.</small>
+  </li>
+  <li class="list-group-item">
+    <span class="badge">%datejoined%</span>
+    Date Joined<br />
+    <small>Displays when the member joined.</small>
+  </li>
+  </div>
+</div></div>
+</div>',
             '',
             '12'
         );

@@ -13,7 +13,7 @@ $content = '';
 if ($PGET->g('thread')) {
 
     $MYSQL->bind('id', $PGET->g('thread'));
-    $query = $MYSQL->query("SELECT * FROM {prefix}forum_posts");
+    $query = $MYSQL->query("SELECT * FROM {prefix}forum_posts WHERE id = :id");
 
     if (!empty($query)) {
         if (isset($_POST['move_to'])) {
