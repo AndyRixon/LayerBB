@@ -10,7 +10,7 @@ if (!$LAYER->perm->check('access_administration')) {
 echo $ADMIN->template('top');
 $notice = '';
 
-$versions = @file_get_contents('http://layerbb.com/version_list.php'); //@jtPox insert the real IP here
+$versions = @file_get_contents('https://layerbb.com/version_list.php'); //@jtPox insert the real IP here
 
 if ($versions != '') {
     $versionList = explode("|", $versions);

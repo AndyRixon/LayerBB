@@ -133,7 +133,7 @@ class Library_Parse
                 } elseif (strtolower($matches[1]) == 'vimeo') {
                     $output = '<iframe src="//player.vimeo.com/video/' . $matches[2] . '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff" width="560" height="240" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
                 } elseif (strtolower($matches[1]) == 'twitch') {
-                    $output = '<object type="application/x-shockwave-flash" width="620" height="378" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=' . $matches[2] . '" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=' . $matches[2] . '&auto_play=true&start_volume=100" /></object>';
+                    $output = '<object type="application/x-shockwave-flash" width="620" height="378" id="live_embed_player_flash" data="https://www.twitch.tv/widgets/live_embed_player.swf?channel=' . $matches[2] . '" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=' . $matches[2] . '&auto_play=true&start_volume=100" /></object>';
                 }
                 return $output;
             }
