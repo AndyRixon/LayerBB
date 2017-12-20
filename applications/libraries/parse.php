@@ -82,6 +82,14 @@ class Library_Parse
 
                 return $output;
             },
+            // text size convert
+            '#\\[size=([^\\]]*?)\\](.*?)\\[/size\\]#uis' => function ($matches) use ($this_object) {
+                $output = '<span style="font-size: ' . $matches[1] . 'px;">' . $matches[2] . '</span>';
+
+               
+
+                return $output;
+            },
             // link without custom text
             '#\\[url\\](.*?)\\[/url\\]#uis' => function ($matches) use ($this_object) {
                 $output = '';

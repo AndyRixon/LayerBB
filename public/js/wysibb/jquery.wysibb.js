@@ -22,7 +22,7 @@ WBBLANG['en'] = CURLANG = {
 	code: "Code",
 	spoiler: "Spoiler",
 	fontcolor: "Font color",
-	fontsize: "Font size",
+	fontsize: "Headings",
 	fontfamily: "Font family",
 	fs_verysmall: "Very small",
 	fs_small: "Small",
