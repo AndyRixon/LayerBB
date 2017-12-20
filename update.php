@@ -76,29 +76,29 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 
 		fwrite($ourFileHandle, $stringData);
 		fclose($ourFileHandle);
-		echo '<br />The updater has successfully updated the config.php file.<br /><a href="update.php?step=2" class="btn btn-default" role="button">Click here to continue with the update!</a>';
+		echo '<br />The updater has successfully updated the config.php file.<br /><a href="update.php?step=2" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
+		header( "refresh:3;url=update.php?step=2" );
 	break;
 	case '2':
-	$dsn = 'mysql:dbname=' . $new_mysql_database . ';host=' . $new_mysql_host;
+		$dsn = 'mysql:dbname=' . $new_mysql_database . ';host=' . $new_mysql_host;
 
             try {
                 $MYSQL = new PDO($dsn, $new_mysql_login, $new_mysql_pass);
             } catch (PDOException $e) {
                 throw new Exception('Connection failed: ' . $e->getMessage());
             }
-        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "generic` ADD `site_enable` INT(1) NOT NULL DEFAULT '1' AFTER `number_subs`;");
+        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "users` CHANGE `about_user` LONGTEXT NOT NULL;");
 		$MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
 		$MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
 		$sand = file_get_contents('install/assets/theme-json/sand.json');
-
         $stmt = $MYSQL->prepare("INSERT INTO " . $new_db_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand);");
         $stmt->bindParam(':sand', $sand);
         $stmt->execute();
 
-
-		echo 'The updater has updated your database.<br /><a href="update.php?step=3" class="btn btn-default" role="button">Click here to continue with the update!</a>';
+		echo '<br />The updater is currently making changes to the database.<br /><a href="update.php?step=success" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
+		header( "refresh:3;url=update.php?step=success" );
 	break;
-	case '3':
+	case 'success':
 		echo '<div class="alert alert-success" role="alert">You have successfully updated LayerBB<br /><strong>Please remember to remove the update.php file and install folder!</strong><br /><br /><a href="index.php" class="btn btn-default" role="button">Click here to go to your forums!</a></div>';
 	break;
 	default:
