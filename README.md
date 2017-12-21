@@ -1,4 +1,4 @@
-# LayerBB 1.0.0 BETA 4
+# LayerBB 1.0.0 BETA 5
 LayerBB is a small yet feature rich community software which enables you to quickly and easily start your own community. It offers great flexibility and easily customisable.
 ## Installation
 1. Download the latest release from GitHub: https://github.com/InfernoGroupUK/LayerBB/releases
