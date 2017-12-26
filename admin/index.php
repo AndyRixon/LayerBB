@@ -15,12 +15,12 @@ echo '<div class="col-md-12">
         </div>
       </div></div>';
 
-$versions = @file_get_contents('http://layerbb.com/version_list.php');
+$versions = @file_get_contents('https://www.layerbb.com/version_list.php');
 if ($versions != '') {
     $versionList = explode("|", $versions);
     foreach ($versionList as $version) {
         if (version_compare(LayerBB_VERSION, $version, '<')) {
-            $alert = $ADMIN->alert('<p>New version found: ' . $version . '<br /><a href="https://github.com/InfernoGroupUK/LayerBB/releases" target="_blank">&raquo; Download Now?</a></p>', 'warning');
+            $alert = $ADMIN->alert('<p>New version found: ' . $version . '<br /><a href="https://github.com/AndyRixon/LayerBB/releases" target="_blank">&raquo; Download Now?</a></p>', 'warning');
         }
     }
 }
@@ -71,7 +71,7 @@ echo $ADMIN->box(
 
 echo $ADMIN->box(
     'Github and Updates',
-    'Get LayerBB on Github <a href="https://github.com/InfernoGroupUK/LayerBB">here</a>.<br />
+    'Get LayerBB on Github <a href="https://github.com/AndyRixon/LayerBB">here</a>.<br />
        To keep up with the updates on LayerBB, you can watch the LayerBB Github repository or visit our website at <a href="https://www.layerbb.com">LayerBB.com</a> regularly!'
 );
 

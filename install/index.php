@@ -42,7 +42,7 @@
         </div>
         <div class="collapse navbar-collapse" id="install-top">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="https://github.com/InfernoGroupUK/LayerBB/wiki">Documentation</a></li>
+                <li><a href="https://github.com/AndyRixon/LayerBB/wiki">Documentation</a></li>
             </ul>
         </div>
     </div>
