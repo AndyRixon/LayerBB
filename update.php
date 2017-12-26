@@ -76,7 +76,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 
 		fwrite($ourFileHandle, $stringData);
 		fclose($ourFileHandle);
-		echo '<br />The updater has successfully updated the config.php file.<br /><a href="update.php?step=2" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
+		echo 'The updater has successfully updated the config.php file.<br /><a href="update.php?step=2" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
 		header( "refresh:3;url=update.php?step=2" );
 	break;
 	case '2':
@@ -95,7 +95,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
         $stmt->bindParam(':sand', $sand);
         $stmt->execute();
 
-		echo '<br />The updater is currently making changes to the database.<br /><a href="update.php?step=success" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
+		echo 'The updater is currently making changes to the database.<br /><a href="update.php?step=success" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
 		header( "refresh:3;url=update.php?step=success" );
 	break;
 	case 'success':
