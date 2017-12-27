@@ -16,7 +16,7 @@
       ),
       array(
           'Forum Offline',
-          ($LAYER->data['offline_msg'])
+          $LAYER->data['offline_msg']
       )
   );
 
