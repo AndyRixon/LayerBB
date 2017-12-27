@@ -187,7 +187,7 @@ echo $ADMIN->box(
 );
 echo $ADMIN->box(
     'Forum Rules',
-    'HTML tags will be converted into ascii codes.
+    'HTML tags will be converted into ascii codes. <strong>Hyperlinks are not supported!</strong>
      <textarea name="board_rules" class="form-control" style="min-height:250px;">' . $LAYER->data['site_rules'] . '</textarea>'
 );
 
