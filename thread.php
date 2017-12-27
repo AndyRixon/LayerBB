@@ -24,8 +24,8 @@ if ($PGET->s(true)) {
     $query = $MYSQL->query("SELECT * FROM {prefix}forum_posts WHERE id = :id and title_friendly = :title_friendly AND post_type = 1");
     if (!empty($query)) {
 
-        if($_SESSION['views'] == '') {
-            $_SESSION['views'] = time();
+        if($_SESSION['views.'.$query['0']['id'].''] == '') {
+            $_SESSION['views.'.$query['0']['id'].''] = time();
             $currentviews = $query['0']['views'];
             $plus = $currentviews + 1;
             $MYSQL->bindMore(
@@ -36,8 +36,8 @@ if ($PGET->s(true)) {
             );
             $MYSQL->query('UPDATE {prefix}forum_posts SET views = :plus_views WHERE id = :id');
         } else {
-            if(time() - $_SESSION['views'] > 30*60) {
-                $_SESSION['views'] = time();
+            if(time() - $_SESSION['views.'.$query['0']['id'].''] > 30*60) {
+                $_SESSION['views.'.$query['0']['id'].''] = time();
                 $currentviews = $query['0']['views'];
                 $plus = $currentviews + 1;
                 $MYSQL->bindMore(
