@@ -24,6 +24,33 @@ if ($PGET->s(true)) {
     $query = $MYSQL->query("SELECT * FROM {prefix}forum_posts WHERE id = :id and title_friendly = :title_friendly AND post_type = 1");
     if (!empty($query)) {
 
+        // Thread View Counter Shit Goes Here! - FINALLY HAPPY.. PARTY TIME! :D
+        if($_SESSION['views'] == '') {
+            $_SESSION['views'] = time();
+            $currentviews = $query['0']['views'];
+            $plus = $currentviews + 1;
+            $MYSQL->bindMore(
+                array(
+                    'id' => $query['0']['id'],
+                    'plus_views' => $plus
+                )
+            );
+            $MYSQL->query('UPDATE {prefix}forum_posts SET views = :plus_views WHERE id = :id');
+        } else {
+            if(time() - $_SESSION['views'] > 30*60) {
+                $_SESSION['views'] = time();
+                $currentviews = $query['0']['views'];
+                $plus = $currentviews + 1;
+                $MYSQL->bindMore(
+                    array(
+                        'id' => $query['0']['id'],
+                        'plus_views' => $plus
+                    )
+                );
+                $MYSQL->query('UPDATE {prefix}forum_posts SET views = :plus_views WHERE id = :id');
+            }
+        }
+
         $MYSQL->bind('id', $query['0']['origin_node']);
         $p_query = $MYSQL->query("SELECT * FROM {prefix}forum_node WHERE id = :id");
         $allowed = explode(',', $p_query['0']['allowed_usergroups']);
