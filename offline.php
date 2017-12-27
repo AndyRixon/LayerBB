@@ -16,7 +16,7 @@
       ),
       array(
           'Forum Offline',
-          'Our forum is currently offline for maintanance, we will be back shortly.'
+          ($LAYER->data['offline_msg'])
       )
   );
 
