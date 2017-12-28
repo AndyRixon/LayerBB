@@ -8,7 +8,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.0.0 BETA 5');
+define('VERSION', '1.0.0 BETA 6');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once 'applications/config.php';
 $new_mysql_host = MYSQL_HOST;
