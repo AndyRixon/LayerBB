@@ -3,15 +3,14 @@
 define('BASEPATH', 'Forum');
 require_once('applications/wrapper.php');
 
+if($LAYER->data['site_enable'] == 0) {
+    redirect(SITE_URL . '/offline.php');
+}
+
 $LAYER->tpl->getTpl('members');
 switch ($PGET->g('cmd')) {
 
     case "register":
-        if (!$LAYER->perm->check('access_administration')) {
-            if($LAYER->data['site_enable'] == 0) {
-                redirect(SITE_URL . '/offline.php');
-            }
-        }
         require_once('applications/commands/members/register.php');
         $LAYER->tpl->addParam(
             array(
@@ -44,11 +43,6 @@ switch ($PGET->g('cmd')) {
         break;
 
     case "user":
-        if (!$LAYER->perm->check('access_administration')) {
-            if($LAYER->data['site_enable'] == 0) {
-                redirect(SITE_URL . '/offline.php');
-            }
-        }
         require_once('applications/commands/members/user.php');
         $LAYER->tpl->addParam(
             array(
@@ -63,11 +57,6 @@ switch ($PGET->g('cmd')) {
         break;
 
     case "activate":
-        if (!$LAYER->perm->check('access_administration')) {
-            if($LAYER->data['site_enable'] == 0) {
-                redirect(SITE_URL . '/offline.php');
-            }
-        }
         require_once('applications/commands/members/activate.php');
         $LAYER->tpl->addParam(
             array(
@@ -82,11 +71,6 @@ switch ($PGET->g('cmd')) {
         break;
 
     case "forgotpassword":
-        if (!$LAYER->perm->check('access_administration')) {
-            if($LAYER->data['site_enable'] == 0) {
-                redirect(SITE_URL . '/offline.php');
-            }
-        }
         require_once('applications/commands/members/forgotpassword.php');
         $LAYER->tpl->addParam(
             array(
@@ -101,11 +85,6 @@ switch ($PGET->g('cmd')) {
         break;
 
     case "resetpassword":
-        if (!$LAYER->perm->check('access_administration')) {
-            if($LAYER->data['site_enable'] == 0) {
-                redirect(SITE_URL . '/offline.php');
-            }
-        }
         require_once('applications/commands/members/resetpassword.php');
         $LAYER->tpl->addParam(
             array(
@@ -120,11 +99,6 @@ switch ($PGET->g('cmd')) {
         break;
 
     case "rules":
-        if (!$LAYER->perm->check('access_administration')) {
-            if($LAYER->data['site_enable'] == 0) {
-                redirect(SITE_URL . '/offline.php');
-            }
-        }
         require_once('applications/commands/members/rules.php');
         $LAYER->tpl->addParam(
             array(
@@ -139,11 +113,6 @@ switch ($PGET->g('cmd')) {
         break;
 
     default:
-        if (!$LAYER->perm->check('access_administration')) {
-            if($LAYER->data['site_enable'] == 0) {
-                redirect(SITE_URL . '/offline.php');
-            }
-        }
         require_once('applications/commands/members/home.php');
         $LAYER->tpl->addParam(
             array(

@@ -55,7 +55,6 @@ if (isset($_POST['update'])) {
         $post_merge = (isset($_POST['post_merge'])) ? '1' : '0';
         //$flatui_ena = (isset($_POST['flatui_enable'])) ? '1' : '0';
         $number_subs = $_POST['number_subs'];
-        $offline_msg = $_POST['offline_msg'];
 
         $fb_app_id = $_POST['fb_app_id'];
         $fb_app_sec = $_POST['fb_app_secret'];
@@ -115,7 +114,6 @@ if (isset($_POST['update'])) {
                 'smtp_username' => $smtp_user,
                 'smtp_password' => $smtp_pass,
                 'site_enable' => $site_enable,
-                'offline_msg' => $offline_msg,
                // 'flat_ui_admin' => $flatui_ena
             ));
 
@@ -139,8 +137,7 @@ if (isset($_POST['update'])) {
                                                             smtp_port = :smtp_port,
                                                             smtp_username = :smtp_username,
                                                             smtp_password = :smtp_password,
-                                                            site_enable = :site_enable,
-                                                            offline_msg = :offline_msg
+                                                            site_enable = :site_enable
                                                             WHERE id = 1');
                 redirect(SITE_URL . '/admin/general.php/notice/edit_success');
             } catch (mysqli_sql_exception $e) {
@@ -187,14 +184,8 @@ echo $ADMIN->box(
 );
 echo $ADMIN->box(
     'Forum Rules',
-    'HTML tags will be converted into ascii codes. <strong>Hyperlinks are not supported!</strong>
-     <textarea name="board_rules" class="form-control" style="min-height:250px;">' . $LAYER->data['site_rules'] . '</textarea>'
-);
-
-echo $ADMIN->box(
-    'Offline Message',
     'HTML tags will be converted into ascii codes.
-     <textarea name="offline_msg" class="form-control" style="min-height:250px;">' . $LAYER->data['offline_msg'] . '</textarea>'
+     <textarea name="board_rules" class="form-control" style="min-height:250px;">' . $LAYER->data['site_rules'] . '</textarea>'
 );
 
 $recaptcha_check = ($LAYER->data['captcha_type'] == "2") ? ' CHECKED' : '';
