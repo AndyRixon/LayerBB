@@ -82,7 +82,7 @@ $LANG = array(
             'register_disabled' => 'Registration is currently disabled.',
             'log_in' => 'Sign In',
             'invalid_login' => 'Invalid details!',
-            'login_success' => 'Successfully logged in! Click <a href="' . SITE_URL . '">here</a> if the page does not redirect you.',
+            'login_success' => '<strong>Logged In:</strong> You have been successfully logged in.<br />If you are not automatically redirected, <a href="' . SITE_URL . '">click here</a>!',
             'email_not_activated' => 'Your email has not been activated yet.',
             'banned' => 'You are currently banned. Contact staff for details.<br />Unban Date: <b>%unban_date%</b><br />Ban Reason: <b>%ban_reason%</b>',
             'rules' => 'Forum Rules',

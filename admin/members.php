@@ -82,6 +82,7 @@ foreach ($query as $u) {
                             </button>
                             <span class="dropdown-arrow dropdown-arrow-inverse"></span>
                             <ul class="dropdown-menu dropdown-inverse" role="menu">
+                              <li><a href="' . SITE_URL . '/members.php/cmd/user/id/' . $u['id'] . '" target="_blank">View User</a></li>
                               <li><a href="' . SITE_URL . '/admin/edit_user.php/id/' . $u['id'] . '">Edit User</a></li>
                               <li><a href="' . SITE_URL . '/admin/members.php/delete_user/' . $u['id'] . '">Delete User</a></li>
                             </ul>

@@ -1,68 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LayerBB Installation</title>
-
-    <!-- Bootstrap -->
-    <link href="assets/css/install.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="assets/js/jquery.min.js"></script>
-
-    <script src="assets/js/install.js"></script>
-    <script>
-        $(function () {
-            var load_msg = '<div class="panel-body"><div align="center"><img src="assets/img/load.gif" alt="Loading..." /></div></div>';
-            $('#main_content').html(load_msg).load('pages/server_check.php');
-        });
-    </script>
-</head>
-<body>
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#install-top">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">LayerBB installation</a>
-        </div>
-        <div class="collapse navbar-collapse" id="install-top">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="https://github.com/InfernoGroupUK/LayerBB/wiki">Documentation</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-
-            <div class="panel panel-primary" id="main_content">
-            </div>
-
-        </div>
-    </div>
-    <footer class="footer text-muted">
-        Powered by LayerBB
-    </footer>
-</div>
-
-<script src="assets/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+<?php include 'assets/tpl/header.php'; 
+$phpver = PHP_VERSION;
+$os = php_uname('s');
+$fileperm = substr(sprintf('%o', fileperms('../applications/config.php')), -3);
+if (extension_loaded('pdo_mysql')) {
+    $pdo = 'Installed';
+} else {
+    $pdo = 'Not Installed';
+}
+?>
+<div class="row">
+  			<div class="col-md-3">
+  				<div class="list-group">
+	 				<a href="#" class="list-group-item active">Introduction</a>
+	  				<a href="#" class="list-group-item">MySQL Information</a>
+	  				<a href="#" class="list-group-item">Forum Information</a>
+	  				<a href="#" class="list-group-item">Admin Information</a>
+	  				<a href="#" class="list-group-item">Installation Complete</a>
+				</div>
+			</div>
+  			<div class="col-md-9">
+  				<div class="row">
+  					<div class="col-md-12">
+  						<div class="progress">
+<div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+    							20%
+  							</div>
+						</div>
+  					</div>
+				</div>
+				<div class="row">
+  					<div class="col-md-12">
+  						<h2>Introduction <small>Welcome to LayerBB Installer</small></h2>
+  						<p>Please ensure all system information below is correct.</p>
+  						<table class="table table-striped">
+  							<tr>
+							    <td>&nbsp;</td>
+							    <td><h5>Recommended</h5></td>
+							    <td><h5>Your System</h5></td>
+  							</tr>
+							<tr>
+							    <td>Operating System</td>
+							    <td><span class="label label-default">Linux</span></td>
+							    <td><span class="label label-primary"><?php echo $os; ?></span></td>
+							</tr>
+							<tr>
+							    <td>PHP Version</td>
+							    <td><span class="label label-default">5.3.7+</span></td>
+							    <td><span class="label label-primary"><?php echo $phpver; ?></span></td>
+							</tr>
+							<tr>
+							    <td>PDO PHP Extension</td>
+							    <td><span class="label label-default">Installed</span></td>
+							    <td><span class="label label-primary"><?php echo $pdo; ?></span></td>
+							</tr>
+							<tr>
+							    <td>File Permission on config.php</td>
+							    <td><span class="label label-default">777</span></td>
+							    <td><span class="label label-primary"><?php echo $fileperm; ?></span></td>
+							</tr>
+						</table>
+  					</div>
+				</div>
+				<div class="row">
+					<?php
+						if (file_exists('../applications/config.php')) {
+							if($fileperm == '777'){
+								echo '<div class="col-md-12" style="text-align: right;">
+  						<a href="mysql.php" class="btn btn-primary btn-sm" role="button">Start Installation</a>
+  					</div>';
+							} else {
+								echo '<div class="alert alert-danger" role="alert"><b>Incorrect File Permission:</b> You need to change the file permission of config.php to 777 in the applications directory to continue.</div>';
+							}
+						    
+						} else {
+						    echo '<div class="alert alert-danger" role="alert"><b>File Missing:</b> You need to rename config.php.new to config.php in the applications directory to continue.</div>';
+						}
+					?>
+				</div>
+  			</div>
+		</div>
+  	</div>
+<?php include 'assets/tpl/footer.php'; ?>

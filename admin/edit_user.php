@@ -73,7 +73,7 @@ if ($PGET->g('id')) {
 
         $token = NoCSRF::generate('csrf_token');
         echo $ADMIN->box(
-            'Edit User (' . $query['0']['username'] . ') <p class="pull-right"><a href="' . SITE_URL . '/admin/members.php" class="btn btn-default btn-xs">Back</a></p>',
+            'Edit User (' . $query['0']['username'] . ') <p class="pull-right"><a href="' . SITE_URL . '/members.php/cmd/user/id/' . $id . '" class="btn btn-default btn-xs" target="_blank">View Profile</a> <a href="' . SITE_URL . '/admin/members.php" class="btn btn-default btn-xs">Back</a></p>',
             $notice .
             '<form action="" method="POST">
                 <input type="hidden" name="csrf_token" value="' . $token . '">

@@ -153,9 +153,8 @@ if (isset($user) && isset($userg) && isset($page_title)) {
     }
 
     //Admin tools
-    $admin_tools = '';
     if ($LAYER->perm->check('access_administration')) {
-        $admin_tools .= $LAYER->tpl->entity(
+        $mod_tools .= $LAYER->tpl->entity(
                 'admin_tools_profile',
                 array(
                     'edit_user',
@@ -245,7 +244,6 @@ if (isset($user) && isset($userg) && isset($page_title)) {
             'age',
             'recent_activity',
             'mod_tools',
-            'admin_tools',
             'visitors',
             'comments',
             'form'
@@ -263,7 +261,6 @@ if (isset($user) && isset($userg) && isset($page_title)) {
             birthday_to_age($user['user_birthday']),
             $recent_activity,
             $mod_tools,
-            $admin_tools,
             $visitors,
             $comments,
             $form

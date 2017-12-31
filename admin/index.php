@@ -15,15 +15,23 @@ echo '<div class="col-md-12">
         </div>
       </div></div>';
 
-$versions = @file_get_contents('http://layerbb.com/version_list.php');
+      $getversions = file_get_contents('https://www.layerbb.com/checkversion.php');
+      $version = explode('|', $getversions);
+      if (version_compare(LayerBB_VERSION, $version[0], '<'))
+      { 
+        $alert = $ADMIN->alert('<p>New version found: ' . $version[0] . '<br /><a href=" ' . $version[1] . '" target="_blank" class="btn btn-primary">&raquo; Download Now?</a></p>', 'warning');
+      }
+
+
+/*$versions = @file_get_contents('https://www.layerbb.com/version_list.php');
 if ($versions != '') {
     $versionList = explode("|", $versions);
     foreach ($versionList as $version) {
         if (version_compare(LayerBB_VERSION, $version, '<')) {
-            $alert = $ADMIN->alert('<p>New version found: ' . $version . '<br /><a href="https://github.com/InfernoGroupUK/LayerBB/releases" target="_blank">&raquo; Download Now?</a></p>', 'warning');
+            $alert = $ADMIN->alert('<p>New version found: ' . $version . '<br /><a href="https://github.com/AndyRixon/LayerBB/releases" target="_blank">&raquo; Download Now?</a></p>', 'warning');
         }
     }
-}
+}*/
 
 if ($LAYER->data['site_enable'] == 0) {
     echo "<div class='alert alert-danger' role='alert'>
@@ -69,10 +77,35 @@ echo $ADMIN->box(
        </table>'
 );
 
+$getnews=simplexml_load_file("https://api.layerbb.com/newsapi.php");
+$newsreader = '<div class="list-group">';
+foreach($getnews as $news) {
+  $newsreader .='<a href="#" class="list-group-item"data-toggle="modal" data-target="#More-'.$news->id.'"><h4 class="list-group-item-heading">'.$news->title.'</h4>
+    <p class="list-group-item-text">'.$news->short.'</p></a>
+    <div class="modal fade" id="More-'.$news->id.'" tabindex="-1" role="dialog" aria-labelledby="More-'.$news->id.'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="More-'.$news->id.'">'.$news->title.'</h4>
+      </div>
+      <div class="modal-body">
+        '.$news->content.'
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    '; 
+}
+$newsreader .='</div>';
+
 echo $ADMIN->box(
-    'Github and Updates',
-    'Get LayerBB on Github <a href="https://github.com/InfernoGroupUK/LayerBB">here</a>.<br />
-       To keep up with the updates on LayerBB, you can watch the LayerBB Github repository or visit our website at <a href="https://www.layerbb.com">LayerBB.com</a> regularly!'
+    'LayerBB News Feed',
+    'Get all the latest news & updates from LayerBB.',
+    $newsreader
 );
 
 //require_once('template/bot.php');

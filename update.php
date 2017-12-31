@@ -8,7 +8,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.0.0 BETA 5');
+define('VERSION', '1.0.0-RC1');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once 'applications/config.php';
 $new_mysql_host = MYSQL_HOST;
@@ -76,7 +76,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 
 		fwrite($ourFileHandle, $stringData);
 		fclose($ourFileHandle);
-		echo '<br />The updater has successfully updated the config.php file.<br /><a href="update.php?step=2" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
+		echo 'The updater has successfully updated the config.php file.<br /><a href="update.php?step=2" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
 		header( "refresh:3;url=update.php?step=2" );
 	break;
 	case '2':
@@ -88,6 +88,8 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
                 throw new Exception('Connection failed: ' . $e->getMessage());
             }
         $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "users` CHANGE `about_user` `about_user` LONGTEXT NULL;");
+        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "generic` ADD `offline_msg` LONGTEXT NOT NULL AFTER `site_enable`;");
+        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "forum_posts` ADD `views` INT(11) NOT NULL DEFAULT '0' AFTER `label`;");
 		$MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
 		$MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
 		$sand = file_get_contents('install/assets/theme-json/sand.json');
@@ -95,7 +97,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
         $stmt->bindParam(':sand', $sand);
         $stmt->execute();
 
-		echo '<br />The updater is currently making changes to the database.<br /><a href="update.php?step=success" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
+		echo 'The updater is currently making changes to the database.<br /><a href="update.php?step=success" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
 		header( "refresh:3;url=update.php?step=success" );
 	break;
 	case 'success':
@@ -107,7 +109,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 	break;
 }
 echo '</div>
-  <div class="panel-footer">&copy; <a href="https://www.layerbb.com" target="_blank">LayerBB 2017</a></div>
+  <div class="panel-footer">&copy; <a href="https://www.layerbb.com" target="_blank">LayerBB 2018</a></div>
 </div>
 </div>
   <div class="col-md-4"></div>

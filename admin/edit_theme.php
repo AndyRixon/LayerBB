@@ -14,9 +14,22 @@ if( $PGET->g('theme') ) {
     $MYSQL->bind('id', $PGET->g('theme'));
     $query = $MYSQL->query("SELECT * FROM {prefix}themes WHERE id = :id");
 
+
+
     if( !empty($query) ) {
 
         $notice = '';
+
+        if ($PGET->g('notice')) {
+             switch ($PGET->g('notice')) {
+                 case "edit_success":
+                     $notice .= $ADMIN->alert(
+                                'Theme have been successfully edited!',
+                                'success'
+                            );
+                     break;
+             }
+         }
 
         if( isset($_POST['edit']) ) {
             try {
@@ -48,10 +61,7 @@ if( $PGET->g('theme') ) {
                 $MYSQL->bind('id', $query['0']['id']);
                 $edit = $MYSQL->query("UPDATE {prefix}themes SET theme_json_data = :theme_json_data WHERE id = :id");
                 if( $edit ) {
-                    $notice .= $ADMIN->alert(
-                        'Theme have been successfully edited!',
-                        'success'
-                    );
+                   redirect(SITE_URL . '/admin/edit_theme.php/theme/'.$query['0']['id'].'/notice/edit_success');
                 } else {
                     throw new Exception ('Unable to save theme!');
                 }

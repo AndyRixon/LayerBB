@@ -65,7 +65,7 @@ function getThreads($id, $page, $sort, $per_page = THREAD_RESULTS_PER_PAGE)
                 '<a href="' . SITE_URL . '/thread.php/' . $thread['title_friendly'] . '.' . $thread['id'] . '">' . $thread['post_title'] . '</a>' . $closed . $stickied,
                 '<a href="' . SITE_URL . '/members.php/cmd/user/id/' . $user['id'] . '">' . $user['username'] . '</a>',
                 $user['user_avatar'],
-                '<span title="' . $post_time['tooltip'] . '">' . $post_time['time'] . '</span>',
+                '<span title="' . $post_time['tooltip'] . '">' . $post_time['time'] . '</span>, '.$thread['views'].' views',
                 $LAYER->node->latestReply($thread['id'], SITE_URL . '/thread.php/' . $thread['title_friendly'] . '.' . $thread['id']),
                 $status,
                 (empty($label_qry['0']['label'])) ? ('') : ($label_qry['0']['label'])

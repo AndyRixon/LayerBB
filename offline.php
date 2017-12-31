@@ -8,7 +8,7 @@
   }
 
   $LAYER->tpl->getTpl('page');
-
+  $msg = html_entity_decode($LAYER->data['offline_msg']);
   $LAYER->tpl->addParam(
       array(
           'page_title',
@@ -16,7 +16,7 @@
       ),
       array(
           'Forum Offline',
-          'Our forum is currently offline for maintanance, we will be back shortly.'
+          $msg
       )
   );
 

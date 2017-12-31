@@ -9,7 +9,7 @@
 <body>
     <table cellspacing="0" cellpadding="0" border="0" width="100%">
         <tr>
-            <td class="navbar navbar-inverse" align="center">
+            <td class="navbar navbar-default" align="center">
                 <!-- This setup makes the nav background stretch the whole width of the screen. -->
                 <table width="650px" cellspacing="0" cellpadding="3" class="container">
                     <tr class="navbar navbar-inner">

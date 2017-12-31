@@ -1,14 +1,38 @@
-<div class="panel-heading">
-    MySQL connection.
-</div>
-<div class="panel-body">
-<?php
-if (isset($_POST['submit'])) {
+<?php include 'assets/tpl/header.php'; 
+
+?>
+<div class="row">
+  			<div class="col-md-3">
+  				<div class="list-group">
+	 				<a href="#" class="list-group-item">Introduction</a>
+	  				<a href="#" class="list-group-item active">MySQL Information</a>
+	  				<a href="#" class="list-group-item">Forum Information</a>
+	  				<a href="#" class="list-group-item">Admin Information</a>
+	  				<a href="#" class="list-group-item">Installation Complete</a>
+				</div>
+			</div>
+  			<div class="col-md-9">
+  				<div class="row">
+  					<div class="col-md-12">
+  						<div class="progress">
+<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+    							40%
+  							</div>
+						</div>
+  					</div>
+				</div>
+				<div class="row">
+  					<div class="col-md-12">
+  						<h2>MYSQL Information</h2>
+  						<p>Please fill out your mysql connection information in the fields below.</p>
+  						<?php
+              ob_start();
+if (isset($_POST['submit_mysql'])) {
     try {
-        $mysql_host = $_POST['host'];//MySQL Host.
-        $mysql_username = $_POST['username'];//MySQL Username
-        $mysql_password = (!$_POST['password']) ? '' : $_POST['password'];//MySQL Password
-        $mysql_database = $_POST['database'];//MySQL Database
+        $mysql_host = $_POST['mysqlhost'];//MySQL Host.
+        $mysql_username = $_POST['mysqlusername'];//MySQL Username
+        $mysql_password = (!$_POST['mysqlpassword']) ? '' : $_POST['mysqlpassword'];//MySQL Password
+        $mysql_database = $_POST['mysqldatabase'];//MySQL Database
         $mysql_prefix = $_POST['prefix'];//MySQL Prefix.
 
         $request = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -28,7 +52,7 @@ if (isset($_POST['submit'])) {
             /*
              * Placing correct values into configuration file.
              */
-            $config = file_get_contents('../config.php');
+            $config = file_get_contents('config.php');
             $config = str_replace('%mysql_host%', $mysql_host, $config);
             $config = str_replace('%mysql_username%', $mysql_username, $config);
             $config = str_replace('%mysql_password%', $mysql_password, $config);
@@ -38,7 +62,7 @@ if (isset($_POST['submit'])) {
             //file_put_contents('../applications/config.php', $config);
 
             //Write contents into the config.php file in the applications directory.
-            $fh = fopen('../../applications/config.php', 'w');
+            $fh = fopen('../applications/config.php', 'w');
             fwrite($fh, $config);
             fclose($fh);
 
@@ -82,10 +106,10 @@ if (isset($_POST['submit'])) {
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "forum_node` (`id` int(11) NOT NULL AUTO_INCREMENT, `node_name` varchar(255) NOT NULL, `name_friendly` varchar(255) NOT NULL, `node_desc` varchar(255) NOT NULL, `in_category` int(11) NOT NULL DEFAULT '0', `node_type` int(11) NOT NULL DEFAULT '1', `parent_node` int(11) NOT NULL DEFAULT '0', `node_locked` int(11) NOT NULL DEFAULT '0', `node_place` int(11) NOT NULL DEFAULT '0', `allowed_usergroups` varchar(255) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
             $MYSQL->query("INSERT INTO `" . $mysql_prefix . "forum_node` (`id`, `node_name`, `name_friendly`, `node_desc`, `in_category`, `node_locked`, `node_place`, `allowed_usergroups`) VALUES (1, 'First Node', 'first_node', 'The first node on this forum', 1, 0, 0, '0,1,3,4');");
 
-            $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "forum_posts` (`id` int(11) NOT NULL AUTO_INCREMENT, `post_title` varchar(255) NOT NULL DEFAULT '', `title_friendly` varchar(255) NOT NULL, `post_content` text NOT NULL, `post_tags` varchar(255) NOT NULL, `post_time` int(11) NOT NULL, `post_user` int(11) NOT NULL, `origin_thread` int(11) NOT NULL DEFAULT '0', `origin_node` int(11) NOT NULL DEFAULT '0', `post_type` int(11) NOT NULL, `post_sticky` int(11) NOT NULL DEFAULT '0', `post_locked` int(11) NOT NULL DEFAULT '0', `last_updated` int(11) NOT NULL DEFAULT '0', `watchers` text NOT NULL, `label` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
+            $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "forum_posts` (`id` int(11) NOT NULL AUTO_INCREMENT, `post_title` varchar(255) NOT NULL DEFAULT '', `title_friendly` varchar(255) NOT NULL, `post_content` text NOT NULL, `post_tags` varchar(255) NOT NULL, `post_time` int(11) NOT NULL, `post_user` int(11) NOT NULL, `origin_thread` int(11) NOT NULL DEFAULT '0', `origin_node` int(11) NOT NULL DEFAULT '0', `post_type` int(11) NOT NULL, `post_sticky` int(11) NOT NULL DEFAULT '0', `post_locked` int(11) NOT NULL DEFAULT '0', `last_updated` int(11) NOT NULL DEFAULT '0', `watchers` text NOT NULL, `label` int(11) NOT NULL, `views` INT(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
             $MYSQL->query("ALTER TABLE `" . $mysql_prefix . "forum_posts` ADD FULLTEXT search(post_title, post_content);");
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "labels` (`id` INT(11) NOT NULL AUTO_INCREMENT, `node_id` INT(11) NOT NULL, `label` VARCHAR(1000) NOT NULL, PRIMARY KEY (`id`))ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
-            $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "generic` (`id` int(11) NOT NULL AUTO_INCREMENT, `site_rules` text NOT NULL, `site_name` varchar(255) NOT NULL, `site_theme` int(11) NOT NULL, `site_language` varchar(255) NOT NULL, `site_email` varchar(255) NOT NULL, `register_enable` int(11) NOT NULL DEFAULT '1', `register_email_activate` int(11) NOT NULL DEFAULT '0', `facebook_authenticate` int(11) NOT NULL DEFAULT '0', `facebook_app_id` varchar(255) NOT NULL DEFAULT '0', `facebook_app_secret` varchar(255) NOT NULL DEFAULT '0', `captcha_type` int(11) NOT NULL DEFAULT '1', `recaptcha_public_key` varchar(255) NOT NULL DEFAULT '0', `recaptcha_private_key` varchar(255) NOT NULL DEFAULT '0', `mail_type` int(11) NOT NULL DEFAULT '1', `smtp_address` varchar(255) NOT NULL DEFAULT '0', `smtp_port` int(11) NOT NULL DEFAULT '0', `smtp_username` varchar(255) NOT NULL DEFAULT '0', `smtp_password` varchar(255) NOT NULL DEFAULT '0', `post_merge` int(1) NOT NULL DEFAULT '1', `flat_ui_admin` INT NOT NULL DEFAULT '0', `number_subs` INT(3) DEFAULT 3  NOT NULL, `site_enable` INT(1) DEFAULT 1  NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
+            $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "generic` (`id` int(11) NOT NULL AUTO_INCREMENT, `site_rules` text NOT NULL, `site_name` varchar(255) NOT NULL, `site_theme` int(11) NOT NULL, `site_language` varchar(255) NOT NULL, `site_email` varchar(255) NOT NULL, `register_enable` int(11) NOT NULL DEFAULT '1', `register_email_activate` int(11) NOT NULL DEFAULT '0', `facebook_authenticate` int(11) NOT NULL DEFAULT '0', `facebook_app_id` varchar(255) NOT NULL DEFAULT '0', `facebook_app_secret` varchar(255) NOT NULL DEFAULT '0', `captcha_type` int(11) NOT NULL DEFAULT '1', `recaptcha_public_key` varchar(255) NOT NULL DEFAULT '0', `recaptcha_private_key` varchar(255) NOT NULL DEFAULT '0', `mail_type` int(11) NOT NULL DEFAULT '1', `smtp_address` varchar(255) NOT NULL DEFAULT '0', `smtp_port` int(11) NOT NULL DEFAULT '0', `smtp_username` varchar(255) NOT NULL DEFAULT '0', `smtp_password` varchar(255) NOT NULL DEFAULT '0', `post_merge` int(1) NOT NULL DEFAULT '1', `flat_ui_admin` INT NOT NULL DEFAULT '0', `number_subs` INT(3) DEFAULT 3  NOT NULL, `site_enable` INT(1) DEFAULT 1  NOT NULL, `offline_msg` LONGTEXT NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "messages` (`id` int(11) NOT NULL AUTO_INCREMENT,`message_title` varchar(255) NOT NULL,`message_content` text NOT NULL,`message_time` int(11) NOT NULL,`origin_message` int(11) NOT NULL DEFAULT '0',`message_sender` int(11) NOT NULL,`message_receiver` int(11) NOT NULL,`message_type` int(11) NOT NULL DEFAULT '1',`receiver_viewed` int(11) NOT NULL DEFAULT '0', `sender_deleted` BOOL NOT NULL DEFAULT '0', `receiver_deleted` BOOL NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "permissions` (`id` int(11) NOT NULL AUTO_INCREMENT,`permission_name` varchar(255) NOT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
             $MYSQL->query("INSERT INTO `" . $mysql_prefix . "permissions` (`id`, `permission_name`) VALUES (1, 'view_forum'),(2, 'create_thread'),(3, 'reply_thread'),(4, 'access_moderation'),(5, 'access_administration');");
@@ -107,7 +131,7 @@ if (isset($_POST['submit'])) {
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "countries` (`id` int(11) NOT NULL AUTO_INCREMENT, `iso` varchar(2) NOT NULL, `language` varchar(255) NOT NULL DEFAULT 'english', PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
             $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $mysql_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
 
-            $sand = file_get_contents('../assets/theme-json/sand.json');
+            $sand = file_get_contents('assets/theme-json/sand.json');
 
             $stmt = $MYSQL->prepare("INSERT INTO " . $mysql_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand);");
             $stmt->bindParam(':sand', $sand);
@@ -365,7 +389,7 @@ if (isset($_POST['submit'])) {
                                                                                                      ('ZA', 'english'),
                                                                                                      ('ZM', 'english'),
                                                                                                      ('ZW', 'english');");
-            echo '<div class="alert alert-success">Success! <a href="javascript:return false;" onclick="javascript:ajaxLoad(\'pages/forum.php\')">Continue</a>.</div>';
+            echo("<script>location.href = 'forum.php';</script>");
         }
 
     } catch (Exception $e) {
@@ -373,15 +397,36 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-<form onsubmit="javascript:ajaxForm('pages/mysql.php')" action="javascript:return false;" class="ajaxForm"
-      method="POST">
-    <input type="text" name="host" class="form-control input-lg" placeholder="MySQL Host"/>
-    <input type="text" name="username" class="form-control input-lg" placeholder="MySQL Username"/>
-    <input type="password" name="password" class="form-control input-lg" placeholder="MySQL Password"/>
-    <input type="text" name="database" class="form-control input-lg" placeholder="MySQL Database"/>
-    <input type="text" name="prefix" class="form-control input-lg" placeholder="MySQL Prefix" value="layerbb_"/>
-    <br/>
-    <input type="hidden" name="submit" value=""/>
-    <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Test Connection and Continue"/>
-</form>
-</div>
+  						<form method="POST" action="mysql.php">
+							<div class="form-group">
+ 							<label for="mysqlhost">MYSQL Hostname</label>
+    						<input type="text" class="form-control" id="mysqlhost" name="mysqlhost" value="localhost">
+  							</div>
+							<div class="form-group">
+							<label for="mysqlusername">MYSQL Username</label>
+							<input type="text" class="form-control" id="mysqlusername" name="mysqlusername" placeholder="MySQL Username">
+							</div>
+							<div class="form-group">
+ 							<label for="mysqlpassword">MYSQL Password</label>
+    						<input type="password" class="form-control" id="mysqlpassword" name="mysqlpassword" placeholder="MySQL Password">
+  							</div>
+							<div class="form-group">
+							<label for="mysqldatabase">MYSQL Database</label>
+							<input type="text" class="form-control" id="mysqldatabase" name="mysqldatabase" placeholder="MySQL Database">
+							</div>
+							<div class="form-group">
+							<label for="prefix">Database Prefix</label>
+							<input type="text" class="form-control" id="prefix" name="prefix" value="layerbb_">
+							</div>
+  					</div>
+				</div>
+				<div class="row">
+  					<div class="col-md-12" style="text-align: right;">
+  						<input type="submit" name="submit_mysql" class="btn btn-primary btn-sm" value="Next Step: Forum Information"/>
+  					</div>
+  				</form>
+				</div>
+  			</div>
+		</div>
+  	</div>
+<?php include 'assets/tpl/footer.php'; ?>
