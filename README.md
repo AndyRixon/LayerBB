@@ -7,6 +7,7 @@ LayerBB is a small yet feature rich community software which enables you to quic
 * SQL Version: MySQL 5.7 or higher / MariaDB 10.2 or higher
 * Webserver Version: Apache 2.2 or higher
 * Control Panel: Standard LAMP, cPanel/WHM or DirectAdmin
+
 **If you have a different configuration to this, and was able to install and use LayerBB successfully - let us know**
 
 ## Installation
