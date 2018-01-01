@@ -1,5 +1,14 @@
 # LayerBB 1.0.0-RC1
 LayerBB is a small yet feature rich community software which enables you to quickly and easily start your own community. It offers great flexibility and easily customisable.
+
+## System Requirements
+* Operating System: Linux-Based
+* PHP Version: 5.3.7 or higher (with the PDO PHP Extension Enabled)
+* SQL Version: MySQL 5.7 or higher / MariaDB 10.2 or higher
+* Webserver Version: Apache 2.2 or higher
+* Control Panel: Standard LAMP, cPanel/WHM or DirectAdmin
+**If you have a different configuration to this, and was able to install and use LayerBB successfully - let us know**
+
 ## Installation
 1. Download the latest release from GitHub: https://github.com/AndyRixon/LayerBB/releases
 2. Unzip the archive you downloaded to your computer using 7-Zip or WinRar.
