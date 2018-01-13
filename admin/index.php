@@ -5,8 +5,7 @@ require_once('../applications/wrapper.php');
 
 if (!$LAYER->perm->check('access_administration')) {
     redirect(SITE_URL);
-}//Checks if user has permission to create a thread.
-//require_once('template/top.php');
+}
 echo $ADMIN->template('top');
 
 echo '<div class="col-md-12">
@@ -15,23 +14,10 @@ echo '<div class="col-md-12">
         </div>
       </div></div>';
 
-      $getversions = file_get_contents('https://www.layerbb.com/checkversion.php');
-      $version = explode('|', $getversions);
-      if (version_compare(LayerBB_VERSION, $version[0], '<'))
-      { 
-        $alert = $ADMIN->alert('<p>New version found: ' . $version[0] . '<br /><a href=" ' . $version[1] . '" target="_blank" class="btn btn-primary">&raquo; Download Now?</a></p>', 'warning');
+      $v=simplexml_load_file("https://api.layerbb.com/api.php?cmd=version");
+      if (version_compare(LayerBB_VERSION, $v->versioning[0]->human, '<')) { 
+          $alert = $ADMIN->alert('<p>New version found: ' . $v->versioning[0]->human . ' (' . $v->versioning[0]->system . ')<br /><a href=" ' . $v->versioning[0]->link . '" target="_blank" class="btn btn-primary">&raquo; Download Now?</a></p>', 'warning');
       }
-
-
-/*$versions = @file_get_contents('https://www.layerbb.com/version_list.php');
-if ($versions != '') {
-    $versionList = explode("|", $versions);
-    foreach ($versionList as $version) {
-        if (version_compare(LayerBB_VERSION, $version, '<')) {
-            $alert = $ADMIN->alert('<p>New version found: ' . $version . '<br /><a href="https://github.com/AndyRixon/LayerBB/releases" target="_blank">&raquo; Download Now?</a></p>', 'warning');
-        }
-    }
-}*/
 
 if ($LAYER->data['site_enable'] == 0) {
     echo "<div class='alert alert-danger' role='alert'>
@@ -48,6 +34,59 @@ if (file_exists('../update.php')) {
     echo "<div class='alert alert-danger' role='alert'>
   <b>Security Alert:</b> You have not deleted the update.php file, this could potentially impact the security of your forum. Please remove the update.php file!
 </div>";
+}
+
+if ($_POST['updateboard']) {
+  $MYSQL->bind('board', clean($_POST['whiteboard']));
+  $MYSQL->query("UPDATE `{prefix}generic` SET `whiteboard` = :board WHERE `id` = 1;");
+  $alert = $ADMIN->alert('AdminCP Whiteboard has been successfully updated.', 'success');
+}
+$notice = '';
+if (isset($_POST['run'])) {
+    try {
+
+        foreach ($_POST as $parent => $child) {
+            $_POST[$parent] = clean($child);
+        }
+
+        $cmd = '/' . $_POST['command'];
+
+        if (!$cmd) {
+            throw new Exception ('Please enter a command.');
+        } else {
+
+            if ($handle = opendir('../applications/terminal')) {
+                while (false !== ($entry = readdir($handle))) {
+                    if ($entry !== "." && $entry !== ".." && $entry !== 'index.html') {
+                        require_once('../applications/terminal/' . $entry);
+                    }
+                }
+                closedir($handle);
+            }
+
+            list($command) = sscanf($cmd, '/%s');
+            /*$MYSQL->where('command_name', $command);
+            $query = $MYSQL->get('{prefix}terminal');*/
+            $MYSQL->bind('command_name', $command);
+            $query = $MYSQL->query('SELECT * FROM {prefix}terminal WHERE command_name = :command_name');
+
+            if (!empty($query)) {
+                $list = sscanf($cmd, '/' . $query['0']['command_syntax']);
+                $command = 'terminal_' . $query['0']['run_function'];
+                $run = call_user_func_array($command, $list);
+                $notice .= $run;
+            } else {
+                throw new Exception ('Command does not exist.');
+            }
+
+        }
+
+    } catch (Exception $e) {
+        $notice .= $ADMIN->alert(
+            $e->getMessage(),
+            'danger'
+        );
+    }
 }
 
 echo $ADMIN->box(
@@ -77,7 +116,42 @@ echo $ADMIN->box(
        </table>'
 );
 
-$getnews=simplexml_load_file("https://api.layerbb.com/newsapi.php");
+$query = $MYSQL->query('SELECT * FROM {prefix}generic WHERE id = 1');
+echo $ADMIN->box(
+    'Whiteboard',
+    '<form name="acpwhiteboard" method="post" action="">
+  <textarea name="whiteboard" cols="100" class="form-control" rows="10" id="whiteboard" >' . $query['0']['whiteboard'] . '</textarea><br />
+    <input name="updateboard" type="submit" class="btn btn-primary" id="updateboard" value="Update">
+</form>'
+);
+
+echo $ADMIN->box(
+    'Terminal',
+    $notice .
+    '<form action="" method="POST">
+         <div class="input-group">
+           <span class="input-group-addon">/</span>
+           <input type="text" name="command" class="form-control" placeholder="Command" />
+           <span class="input-group-btn">
+             <input type="submit" name="run" value="Run" class="btn btn-default" />
+           </span>
+         </div>
+       </form>
+       <br />
+       You can run commands that are available in LayerBB.
+       <br />
+       <h4>Commands</h4>
+       Change User\'s Usergroup: <code>cugroup &lt;username&gt; &lt;usergroup&gt;</code>
+       <br />
+       Change User\'s Display Group: <code>dugroup &lt;username&gt; &lt;usergroup&gt;</code>
+       <br />
+       Ban User: <code>ban &lt;username&gt;</code>
+       <br />
+       Unban User: <code>unban &lt;username&gt;</code>'
+);
+
+
+$getnews=simplexml_load_file("https://api.layerbb.com/api.php?cmd=newsfeed");
 $newsreader = '<div class="list-group">';
 foreach($getnews as $news) {
   $newsreader .='<a href="#" class="list-group-item"data-toggle="modal" data-target="#More-'.$news->id.'"><h4 class="list-group-item-heading">'.$news->title.'</h4>
@@ -103,12 +177,11 @@ foreach($getnews as $news) {
 $newsreader .='</div>';
 
 echo $ADMIN->box(
-    'LayerBB News Feed',
+    'LayerBB News Feed <p class="pull-right"><a href="https://api.layerbb.com/api.php?cmd=newsfeed&view=all" target="_blank" class="btn btn-default btn-xs">View Archive</a></p>',
     'Get all the latest news & updates from LayerBB.',
     $newsreader
 );
 
-//require_once('template/bot.php');
 echo $ADMIN->template('bot');
 
 ?>

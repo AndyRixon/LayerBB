@@ -32,7 +32,6 @@
                   <ul class="nav nav-pills nav-stacked">
                       <li class="active"><a href="javascript:return false;">Welcome,  <?php echo $LAYER->sess->data['username']; ?></a></li>
                       <li><a href="<?php echo SITE_URL; ?>/admin"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a></li>
-                      <li><a href="<?php echo SITE_URL; ?>/admin/terminal.php"><i class="fa fa-terminal"></i> Terminal</a></li>
                       <?php echo $ADMIN->navigation(); ?>
                   </ul>
 

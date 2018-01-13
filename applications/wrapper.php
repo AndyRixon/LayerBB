@@ -15,11 +15,6 @@ if (BASEPATH == "Staff") {
     define('PATH_A', '../applications/');
     define('TEMPLATE', '../');
     define('APPLICATION', '');
-} elseif (BASEPATH == "Extension") {
-    define('PATH', '../../../');
-    define('PATH_A', '../../../applications/');
-    define('TEMPLATE', '../../../');
-    define('APPLICATION', '../../../applications/');
 } elseif (BASEPATH == "Install") {
     define('PATH', '../../');
     define('PATH_A', '../../applications/');
@@ -165,8 +160,6 @@ if (!defined('Install')) {
 }
 
 if (!defined('Install')) {
-    //Including installed extensions.
-    include_extensions();
     //Check if authenticated via Facebook
     if ($LAYER->data['facebook_authenticate'] == "1") {
         if (isset($_GET['code']) && isset($_GET['state'])) {

@@ -51,11 +51,7 @@ if (isset($_POST['search_submit'])) {
                 $sql_to = "AND post_time < :time_to";
                 $MYSQL->bind('time_to', $time_to);
             }
-            $sql = "SELECT *, MATCH (post_title, post_content) AGAINST (:search_query_one $mode) AS score
-                                        FROM
-                                        {prefix}forum_posts
-                                        WHERE
-                                        MATCH (post_title, post_content) AGAINST (:search_query_two $mode) $sql_from $sql_to;";
+            $sql = "SELECT * FROM {prefix}forum_posts WHERE post_title LIKE CONCAT('%',".$search_query_threads.",'%');";
             $query = $MYSQL->query($sql);
             $threads = array();
 
