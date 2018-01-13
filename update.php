@@ -1,6 +1,5 @@
 <?php
 define('BASEPATH', 'Forum');
-require_once('applications/wrapper.php');
 @ini_set('zlib.output_compression', 1);
 
 error_reporting(1);
@@ -8,7 +7,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.0.0-RC1');
+define('VERSION', '1.0.0');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once 'applications/config.php';
 $new_mysql_host = MYSQL_HOST;
@@ -41,7 +40,6 @@ if (!defined(\'BASEPATH\')) {
 
 /*
  * LayerBB Configuration File.
- * LayerBB (http://LayerBB.net)
  */
 define(\'MYSQL_HOST\', "'.$new_mysql_host.'");
 define(\'MYSQL_USERNAME\', "'.$new_mysql_login.'");
@@ -87,10 +85,13 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
             } catch (PDOException $e) {
                 throw new Exception('Connection failed: ' . $e->getMessage());
             }
-        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "users` CHANGE `about_user` `about_user` LONGTEXT NULL;");
-        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "generic` ADD `offline_msg` LONGTEXT NOT NULL AFTER `site_enable`;");
-        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "forum_posts` ADD `views` INT(11) NOT NULL DEFAULT '0' AFTER `label`;");
-		$MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
+        $MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
+        $MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "extensions`;");
+        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "generic` ADD `whiteboard` LONGTEXT NOT NULL AFTER `offline_msg`;");
+        $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "nav` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `url` VARCHAR(255) NOT NULL , `newpage` INT(1) NOT NULL , `title` VARCHAR(255) NOT NULL , `ordernav` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "sidebar` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `title` VARCHAR(50) NOT NULL , `content` LONGTEXT NOT NULL , `sideorder` INT(2) NOT NULL , `style` VARCHAR(50) NOT NULL , `glyphicon` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "apps` (`id` int(2) NOT NULL AUTO_INCREMENT,`appid` varchar(50) NOT NULL,`title` varchar(250) NOT NULL,`short` longtext NOT NULL,`active` int(1) NOT NULL,`w_url` int(1) NOT NULL,`url` varchar(50) NOT NULL,`author` varchar(50) NOT NULL,`version` varchar(50) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        	
 		$MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
 		$sand = file_get_contents('install/assets/theme-json/sand.json');
         $stmt = $MYSQL->prepare("INSERT INTO " . $new_db_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand);");

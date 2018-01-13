@@ -70,7 +70,10 @@ class Library_Parse
             '#\\[code=([^\\]]*?)\\](.*?)\\[/code\\]#uis' => '<pre class="brush: \\1">\\2</pre>',
             // flags
             '#\\[flag\\](.*?)\\[/flag\\]#uis' => '<span class="flag-icon flag-icon-\\1"></span>',
-            '#\\[video\\](.*?)\\[/video\\]#uis' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/\\1" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>',
+            // Images
+            '#\\[img\\](.*?)\\[/img\\]#uis' => '<img src="\\1" />',
+            // Youtube
+            '#\\[youtube\\](.*?)\\[/youtube\\]#uis' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/\\1" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>',
             // image
             '#\\[img\\](.*?)\\[/img\\]#uis' => function ($matches) {
                 $output = '';
@@ -84,7 +87,22 @@ class Library_Parse
             },
             // text size convert
             '#\\[size=([^\\]]*?)\\](.*?)\\[/size\\]#uis' => function ($matches) use ($this_object) {
-                $output = '<span style="font-size: ' . $matches[1] . 'px;">' . $matches[2] . '</span>';
+                if($matches[1]==1){
+                    $size = '10';
+                } elseif($matches[1]==2) {
+                    $size = '12';
+                } elseif($matches[1]==3) {
+                    $size = '14';
+                } elseif($matches[1]==4) {
+                    $size = '16';
+                } elseif($matches[1]==5) {
+                    $size = '18';
+                } elseif($matches[1]==6) {
+                    $size = '24';
+                } elseif($matches[1]==7) {
+                    $size = '54';
+                }
+                $output = '<span style="font-size: ' . $size . 'px;">' . $matches[2] . '</span>';
 
                
 

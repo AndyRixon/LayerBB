@@ -32,6 +32,9 @@ class LAYER_Template
         $this->addParam('bb_stat_users', stat_users());
         $this->addParam('bb_software_version', LayerBB_VERSION);
         $this->addParam('users_online', users_online());
+        $this->addParam('app_nav', app_nav());
+        $this->addParam('custom_nav', custom_nav());
+        $this->addParam('custom_sidebar', custom_sidebar());
         $this->addParam('current_url', $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
 
         //Globally adding parameters for captcha.
@@ -41,9 +44,10 @@ class LAYER_Template
             '<link rel="stylesheet" href="' . SITE_URL . '/public/css/LayerBB.css" />
                <script type="text/javascript" src="' . SITE_URL . '/public/js/jquery.min.js"></script>
                <script type="text/javascript" src="' . SITE_URL . '/public/js/autosaveform.js"></script>
-               <script type="text/javascript" src="' . SITE_URL . '/public/js/wysibb/jquery.wysibb.min.js"></script>
+               <script type="text/javascript" src="' . SITE_URL . '/public/js/sceditor/sceditor.min.js"></script>
                <script type="text/javascript" src="' . SITE_URL . '/public/js/jquery.tagsinput.min.js"></script>
                <script type="text/javascript" src="' . SITE_URL . '/public/js/LayerBB.js"></script>
+               <link rel="stylesheet" href="' . SITE_URL . '/public/js/sceditor/themes/default.min.css" id="theme-style" />
                <link type="text/css" rel="Stylesheet" href="' . SITE_URL . '/public/js/highlighter/styles/shThemeDefault.css"/>
                <link type="text/css" rel="Stylesheet" href="' . SITE_URL . '/public/js/highlighter/styles/shCore.css"/>
                '
@@ -51,7 +55,17 @@ class LAYER_Template
 
         $this->addParam(
             'highlighter_footer',
-            '<script type="text/javascript" src="' . SITE_URL . '/public/js/highlighter/shCore.js"></script>
+            '<script src="' . SITE_URL . '/public/js/sceditor/formats/bbcode.js"></script>
+<script>
+// Replace the textarea #example with SCEditor
+var textarea = document.getElementById(\'editor\');
+sceditor.create(textarea, {
+    format: \'bbcode\',
+    toolbar: \'bold,italic,underline,strike,email,link,unlink|left,center,right,justify|font,size,color,removeformat|cut,copy,paste|bulletlist,orderedlist|code,quote,horizontalrule|image,emoticon,youtube|maximize,source\',
+    style: \'' . SITE_URL . '/public/js/sceditor/themes/default.min.css\'
+});
+</script>
+            <script type="text/javascript" src="' . SITE_URL . '/public/js/highlighter/shCore.js"></script>
              <script type="text/javascript" src="' . SITE_URL . '/public/js/highlighter/shAutoloader.js" ></script>
              <script type="text/javascript">
              SyntaxHighlighter.autoloader(

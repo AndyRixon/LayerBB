@@ -19,8 +19,10 @@ class LAYER_Admin
             'Configuration',
             array(
                 'General Settings' => SITE_URL . '/admin/general.php',
-                'Manage Extensions' => SITE_URL . '/admin/extensions.php',
-                'Manage Themes' => SITE_URL . '/admin/theme.php'
+                'Manage Applications' => SITE_URL . '/admin/applications.php',
+                'Manage Themes' => SITE_URL . '/admin/theme.php',
+                'Manage Navbar' => SITE_URL . '/admin/navbar.php',
+                'Manage Sidebar' => SITE_URL . '/admin/sidebar.php'
             )
         );
         $this->addNav(

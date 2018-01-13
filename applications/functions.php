@@ -63,6 +63,60 @@ function stat_users()
     return number_format(count($query));
 }
 
+function app_nav()
+{
+    global $MYSQL, $LAYER;
+    $query = $MYSQL->query("SELECT * FROM {prefix}apps WHERE active = 1 AND w_url = 1");
+    
+    $appnav = array();
+    foreach ($query as $a) {
+        $appnav[] = '<li><a href="' . SITE_URL . '/'.$a['url'].'">'.$a['title'].'</a></li>';
+    }
+    if (!empty($appnav)) {
+        return implode('', $appnav);
+    } 
+}
+
+function custom_nav()
+{
+    global $MYSQL, $LAYER;
+    $query = $MYSQL->query("SELECT * FROM {prefix}nav ORDER BY ordernav ASC");
+    
+    $nav = array();
+    foreach ($query as $n) {
+        if($n['newpage']=='1'){
+            $newpage = ' target="_blank"';
+        } else {
+            $newpage = ' target="_self"';
+        }
+        $nav[] = '<li><a href="'.$n['url'].'"'.$newpage.'>'.$n['title'].'</a></li>';
+    }
+    if (!empty($nav)) {
+        return implode('', $nav);
+    } 
+}
+
+function custom_sidebar()
+{
+    global $MYSQL, $LAYER;
+    $query = $MYSQL->query("SELECT * FROM {prefix}sidebar ORDER BY sideorder ASC");
+    
+    $side = array();
+    foreach ($query as $n) {
+        $side[] = '<div class="panel panel-'.$n['style'].'">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="glyphicon glyphicon-'.$n['glyphicon'].'"></i> '.$n['title'].'</h3>
+  </div>
+  <div class="panel-body">
+    '.$n['content'].'
+  </div>
+</div>';
+    }
+    if (!empty($side)) {
+        return implode('', $side);
+    } 
+}
+
 /*
  * Users that are online over the past 24 hours.
  * time >= session_time
@@ -436,18 +490,6 @@ function rrmdir($dir)
         return true;
     } else {
         return false;
-    }
-}
-
-/*
- * Include all installed extensions.
- */
-function include_extensions()
-{
-    global $MYSQL;
-    $query = $MYSQL->query("SELECT * FROM {prefix}extensions");
-    foreach ($query as $extension) {
-        require_once('extensions/' . $extension['extension_folder'] . '/manifest.php');
     }
 }
 
