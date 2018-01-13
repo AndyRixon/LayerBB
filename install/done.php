@@ -41,7 +41,6 @@ include 'assets/tpl/header.php';
         <div class="row">
             <div class="col-md-12" style="text-align: right;">
               <a href="../" class="btn btn-primary btn-sm" role="button">Go to the forum</a>
-              <a href="../admin" class="btn btn-primary btn-sm" role="button">Go to the AdminCP</a>
             </div>
         </div>
         </div>
