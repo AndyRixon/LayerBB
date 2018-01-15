@@ -36,7 +36,7 @@ if (file_exists('../update.php')) {
 </div>";
 }
 
-if ($_POST['updateboard']) {
+if (isset($_POST['updateboard'])) {
   $MYSQL->bind('board', clean($_POST['whiteboard']));
   $MYSQL->query("UPDATE `{prefix}generic` SET `whiteboard` = :board WHERE `id` = 1;");
   $alert = $ADMIN->alert('AdminCP Whiteboard has been successfully updated.', 'success');

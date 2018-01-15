@@ -7,6 +7,11 @@ if (extension_loaded('pdo_mysql')) {
 } else {
     $pdo = 'Not Installed';
 }
+if (extension_loaded('mcrypt')) {
+    $mcrypt = 'Installed';
+} else {
+    $mcrypt = 'Not Installed';
+}
 ?>
 <div class="row">
   			<div class="col-md-3">
@@ -45,13 +50,18 @@ if (extension_loaded('pdo_mysql')) {
 							</tr>
 							<tr>
 							    <td>PHP Version</td>
-							    <td><span class="label label-default">5.3.7+</span></td>
+							    <td><span class="label label-default">5.4.0+</span></td>
 							    <td><span class="label label-primary"><?php echo $phpver; ?></span></td>
 							</tr>
 							<tr>
 							    <td>PDO PHP Extension</td>
 							    <td><span class="label label-default">Installed</span></td>
 							    <td><span class="label label-primary"><?php echo $pdo; ?></span></td>
+							</tr>
+							<tr>
+							    <td>MCrypt PHP Extension</td>
+							    <td><span class="label label-default">Installed</span></td>
+							    <td><span class="label label-primary"><?php echo $mcrypt; ?></span></td>
 							</tr>
 							<tr>
 							    <td>File Permission on config.php</td>

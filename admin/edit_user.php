@@ -15,6 +15,7 @@ function list_groups()
     global $MYSQL;
     $query = $MYSQL->query('SELECT * FROM {prefix}usergroups');
     $return = '';
+    $check = '';
     foreach ($query as $s) {
         $checked = ($s['id'] == $check) ? ' selected' : '';
         $return .= '<option value="' . $s['id'] . '"' . $checked . '>' . $s['group_name'] . '</option>';

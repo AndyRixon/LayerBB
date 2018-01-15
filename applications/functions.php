@@ -63,6 +63,17 @@ function stat_users()
     return number_format(count($query));
 }
 
+function custom_logo()
+{
+    global $MYSQL, $LAYER;
+    if(empty($LAYER->data['logo'])) {
+        $logo = '<img src="' . SITE_URL . '/public/img/LayerBB_logo.png" width="230px" height="70px" />';
+    } else {
+        $logo = '<img src="' . SITE_URL . '/uploads/'.$LAYER->data['logo'].'" width="230px" height="70px" />';
+    }
+    return $logo;    
+}
+
 function app_nav()
 {
     global $MYSQL, $LAYER;

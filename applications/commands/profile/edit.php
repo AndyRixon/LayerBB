@@ -35,8 +35,35 @@ if (isset($_POST['edit'])) {
         } elseif (!validEmail($email)) {
             throw new Exception ($LANG['global_form_process']['invalid_email']);
         } else {
-            if ($email !== $LAYER->sess->data['user_email']) {
 
+            $getfields = $MYSQL->query("SELECT * FROM {prefix}profile_fields");
+            foreach ($getfields as $field) {
+                $fieldid = $field['id'];
+                $MYSQL->bind('fieldid', $fieldid);
+                $MYSQL->bind('userid', $LAYER->sess->data['id']);
+                $getfieldcontent = $MYSQL->query("SELECT * FROM {prefix}profile_field_content WHERE userid = :userid AND fieldid = :fieldid");
+                $fieldcount = count($getfieldcontent);
+                $field_content = clean($_POST[$fieldid]);
+                if ($fieldcount == '0' && $field_content != '') {
+                    $MYSQL->bind('fieldid', $fieldid);
+                    $MYSQL->bind('userid', $LAYER->sess->data['id']);
+                    $MYSQL->bind('content', $field_content);
+                    $MYSQL->query("INSERT INTO {prefix}profile_field_content (fieldid, content, userid) VALUES (:fieldid, :content, :userid)");
+                } elseif ($fieldcount != '0' && $field_content == '') {
+                    $MYSQL->bind('fieldid', $fieldid);
+                    $MYSQL->bind('userid', $LAYER->sess->data['id']);
+                    $MYSQL->query("DELETE FROM {prefix}profile_field_content WHERE userid = :userid AND fieldid = :fieldid");
+                } elseif ($fieldcount != '0' && $field_content != '') {
+                    foreach ($getfieldcontent as $fc) {
+                        $MYSQL->bind('fieldid', $fieldid);
+                        $MYSQL->bind('userid', $LAYER->sess->data['id']);
+                        $MYSQL->bind('content', $field_content);
+                        $MYSQL->query("UPDATE {prefix}profile_field_content SET content = :content WHERE userid = :userid AND fieldid = :fieldid");
+                    }
+                }
+            }
+
+            if ($email !== $LAYER->sess->data['user_email']) {
                 if (!emailTaken($email)) {
                     $MYSQL->bindMore(
                         array(
@@ -49,15 +76,13 @@ if (isset($_POST['edit'])) {
                             'id' => $LAYER->sess->data['id']
                         )
                     );
-                    if ($MYSQL->query("UPDATE {prefix}users SET user_email = :user_email, about_user = :about_user, set_timezone = :set_timezone, user_birthday = :user_birthday, location = :location, gender = :gender WHERE id = :id") > 0) {
+                    $MYSQL->query("UPDATE {prefix}users SET user_email = :user_email, about_user = :about_user, set_timezone = :set_timezone, user_birthday = :user_birthday, location = :location, gender = :gender WHERE id = :id");
                         $notice .= $LAYER->tpl->entity(
                             'success_notice',
                             'content',
                             $LANG['global_form_process']['save_success']
                         );
-                    } else {
-                        throw new Exception ($LANG['global_form_process']['error_saving']);
-                    }
+                    
 
                 } else {
                     throw new Exception ($LANG['global_form_process']['email_used']);
@@ -75,15 +100,13 @@ if (isset($_POST['edit'])) {
                     )
                 );
 
-                if ($MYSQL->query("UPDATE {prefix}users SET set_timezone = :set_timezone, location = :location, gender = :gender, user_birthday = :user_birthday, about_user = :about_user WHERE id = :id") > 0) {
+                $MYSQL->query("UPDATE {prefix}users SET set_timezone = :set_timezone, location = :location, gender = :gender, user_birthday = :user_birthday, about_user = :about_user WHERE id = :id");
                     $notice .= $LAYER->tpl->entity(
                         'success_notice',
                         'content',
                         $LANG['global_form_process']['save_success']
                     );
-                } else {
-                    throw new Exception ($LANG['global_form_process']['error_saving']);
-                }
+                
 
             }
         }
@@ -99,6 +122,20 @@ if (isset($_POST['edit'])) {
 }
 
 define('CSRF_TOKEN', NoCSRF::generate('csrf_token'));
+
+    $MYSQL->bind('profile_owner', $LAYER->sess->data['id']);
+    $getfields = $MYSQL->query("SELECT * FROM {prefix}profile_fields");
+        $fields = '<div class="panel panel-default">
+  <div class="panel-heading">Additional Profile Fields</div>
+  <div class="panel-body">';
+        foreach ($getfields as $field) {
+            $MYSQL->bind('userid', $LAYER->sess->data['id']);
+            $MYSQL->bind('fieldid', $field['id']);
+            $getfield = $MYSQL->query("SELECT * FROM {prefix}profile_field_content WHERE userid = :userid AND fieldid = :fieldid");
+            $fields .= $FORM->build('text', $field['title'], $field['id'], array('value' => $getfield['0']['content']));
+        }
+        $fields .= '</div>
+</div>';
 
 $timezones = '<select id="timezone" name="timezone">';
 foreach (timezones() as $timezone => $code) {
@@ -171,6 +208,8 @@ $content .= '<form id="LAYER_form" action="" method="POST">
                  ' . $FORM->build('text', $LANG['bb']['members']['birthday'], 'birthday', array('value' => $val_birthday)) . '
                  <label for="editor">' . $LANG['bb']['profile']['about_you'] . '</label><br />
                  <textarea name="about" id="editor" style="min-width:100%;max-width:100%;height:150px;">' . $LAYER->sess->data['about_user'] . '</textarea>
+                 <br />
+                '.$fields.'
                  <br />
                  ' . $FORM->build('submit', '', 'edit', array('value' => $LANG['bb']['profile']['form_save'])) . '
                </form>';

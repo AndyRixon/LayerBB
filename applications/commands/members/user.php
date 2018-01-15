@@ -145,7 +145,7 @@ if (isset($user) && isset($userg) && isset($page_title)) {
                 ),
                 array(
                     'Ban User',
-                    SITE_URL . '/mod/ban.php/id/' . $id
+                    SITE_URL . '/mod/ban.php/id/' . $user['id']
                 ),
                 'buttons'
             );
@@ -162,7 +162,7 @@ if (isset($user) && isset($userg) && isset($page_title)) {
                 ),
                 array(
                     'Edit User',
-                    SITE_URL . '/admin/edit_user.php/id/' . $id
+                    SITE_URL . '/admin/edit_user.php/id/' . $user['id']
                 ),
                 'buttons'
             );
@@ -211,6 +211,18 @@ if (isset($user) && isset($userg) && isset($page_title)) {
     }
     $visitors .= '</ul></div>';
 
+    //custom profile fields
+    $fields = '<div class="list-group">';
+    $MYSQL->bind('profile_owner', $user['id']);
+    $query = $MYSQL->query("SELECT * FROM {prefix}profile_field_content WHERE userid = :profile_owner");
+    foreach ($query as $field) {
+        $MYSQL->bind('fieldid', $field['fieldid']);
+        $getfield = $MYSQL->query("SELECT * FROM {prefix}profile_fields WHERE id = :fieldid");
+        $fields .= '<a href="#" class="list-group-item"><h4 class="list-group-item-heading">'.$getfield['0']['title'].'</h4>
+    <p class="list-group-item-text">'.$field['content'].'</p></a>';
+    }
+    $fields .= '</div>';
+
 
     //Breadcrumbs
     $LAYER->tpl->addBreadcrumb(
@@ -246,6 +258,7 @@ if (isset($user) && isset($userg) && isset($page_title)) {
             'mod_tools',
             'visitors',
             'comments',
+            'profile_fields',
             'form'
         ),
         array(
@@ -263,6 +276,7 @@ if (isset($user) && isset($userg) && isset($page_title)) {
             $mod_tools,
             $visitors,
             $comments,
+            $fields,
             $form
         )
     );

@@ -42,7 +42,7 @@ class LAYER_Session
 
             //Adding links for users who are logged in and everything else in the template.
             $LAYER->user->addUserLink(array(
-                $LANG['bb']['profile']['profile'] => SITE_URL . '/members.php/cmd/user/',
+                $LANG['bb']['profile']['profile'] => SITE_URL . '/members.php/cmd/user/id/'.$this->data['id'],
                 $LANG['bb']['profile']['personal_details'] => SITE_URL . '/profile.php/cmd/edit',
                 $LANG['bb']['profile']['avatar'] => SITE_URL . '/profile.php/cmd/avatar',
                 $LANG['bb']['profile']['signature'] => SITE_URL . '/profile.php/cmd/signature',

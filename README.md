@@ -1,4 +1,4 @@
-# LayerBB 1.0.0
+# LayerBB 1.0.1
 LayerBB is a small yet feature rich community software which enables you to quickly and easily start your own community. It offers great flexibility and easily customisable.
 
 ## System Requirements

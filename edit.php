@@ -225,30 +225,6 @@ if ($PGET->g('post')) {
                         ' . $FORM->build('submit', '', 'edit', array('value' => $LANG['bb']['form']['edit_post'])) . '
                       </form>';
 
-        foreach ($ICONS as $category => $icons_cat) {
-            $icon_package[$category] = '';
-            foreach ($icons_cat as $code => $html) {
-                $icon_package[$category] .= '<a href="javascript:add_emoji(\'' . $code . '\');"><span style="font-size: 30px;" title="' . $code . '">' . $html . '</span></a> ';
-            }
-        }
-        $content .= $LAYER->tpl->entity(
-            'smiley_list',
-            array(
-                'smilies',
-                'misc',
-                'food',
-                'animals',
-                'plants'
-            ),
-            array(
-                $icon_package['smilies'],
-                $icon_package['misc'],
-                $icon_package['food'],
-                $icon_package['animals'],
-                $icon_package['plants']
-            )
-        );
-
         $LAYER->tpl->addParam(
             array(
                 'page_title',

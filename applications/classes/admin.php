@@ -18,7 +18,7 @@ class LAYER_Admin
         $this->addNav(
             'Configuration',
             array(
-                'General Settings' => SITE_URL . '/admin/general.php',
+                'System Settings' => SITE_URL . '/admin/general.php',
                 'Manage Applications' => SITE_URL . '/admin/applications.php',
                 'Manage Themes' => SITE_URL . '/admin/theme.php',
                 'Manage Navbar' => SITE_URL . '/admin/navbar.php',
@@ -30,6 +30,7 @@ class LAYER_Admin
             array(
                 'Manage Usergroups' => SITE_URL . '/admin/usergroups.php',
                 'Manage Users' => SITE_URL . '/admin/members.php',
+                'Custom Profile Fields' => SITE_URL . '/admin/profile_fields.php',
                 'Mass Email Users' => SITE_URL . '/admin/massemail.php'
 
             )

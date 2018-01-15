@@ -35,6 +35,7 @@ class LAYER_Template
         $this->addParam('app_nav', app_nav());
         $this->addParam('custom_nav', custom_nav());
         $this->addParam('custom_sidebar', custom_sidebar());
+        $this->addParam('custom_logo', custom_logo());
         $this->addParam('current_url', $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
 
         //Globally adding parameters for captcha.
@@ -115,6 +116,7 @@ sceditor.create(textarea, {
             $this->addParam(
                 array(
                     'username',
+                    'user_id',
                     'username_style',
                     'user_avatar',
                     'user_post_count',
@@ -122,6 +124,7 @@ sceditor.create(textarea, {
                 ),
                 array(
                     $LAYER->sess->data['username'],
+                    $LAYER->sess->data['id'],
                     $LAYER->sess->data['username_style'],
                     $LAYER->sess->data['user_avatar'],
                     $user_post_count,
