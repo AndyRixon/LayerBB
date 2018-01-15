@@ -3,7 +3,7 @@ LayerBB is a small yet feature rich community software which enables you to quic
 
 ## System Requirements
 * Operating System: Linux-Based
-* PHP Version: 5.3.7 or higher (with the PDO PHP Extension Enabled)
+* PHP Version: 5.4.0 or higher (with the PDO & MCrypt PHP Extension Enabled)
 * SQL Version: MySQL 5.7 or higher / MariaDB 10.2 or higher
 * Webserver Version: Apache 2.2 or higher
 * Control Panel: Standard LAMP, cPanel/WHM or DirectAdmin
