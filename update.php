@@ -7,7 +7,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.0.1');
+define('VERSION', '1.0.2');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once 'applications/config.php';
 $new_mysql_host = MYSQL_HOST;
@@ -85,17 +85,16 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
             } catch (PDOException $e) {
                 throw new Exception('Connection failed: ' . $e->getMessage());
             }
-        $MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
-        $MYSQL->query("ALTER TABLE `" . $new_db_prefix . "generic` ADD `logo` varchar(255) NOT NULL AFTER `offline_msg`;");
-        $MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "profile_fields` (`id` int(2) NOT NULL AUTO_INCREMENT,`title` varchar(50) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-		$MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "profile_field_content` (`id` int(2) NOT NULL AUTO_INCREMENT,`userid` INT(2) NOT NULL,`fieldid` INT(2) NOT NULL,`content` LONGTEXT NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        echo 'The updater is currently making changes to the database.<br /><a href="update.php?step=success" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
+
+        /*$MYSQL->query("DROP TABLE IF EXISTS `" . $new_db_prefix . "themes`;");
+        $MYSQL->query("");
 		$MYSQL->query("CREATE TABLE IF NOT EXISTS `" . $new_db_prefix . "themes` (`id` int(11) NOT NULL AUTO_INCREMENT, `theme_name` varchar(255) NOT NULL, `theme_version` varchar(255) NOT NULL DEFAULT '1', `theme_json_data` LONGTEXT NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
-		$sand = file_get_contents('install/assets/theme-json/sand.json');
+		$sand = file_get_contents('public/themes/Sand/entities.json');
         $stmt = $MYSQL->prepare("INSERT INTO " . $new_db_prefix . "themes (`theme_name`, `theme_version`, `theme_json_data`) VALUES ('Sand', '1.0', :sand);");
         $stmt->bindParam(':sand', $sand);
-        $stmt->execute();
+        $stmt->execute();*/
 
-		echo 'The updater is currently making changes to the database.<br /><a href="update.php?step=success" class="btn btn-default" role="button">Click here if the updater fails to go to the next step.</a>';
 		header( "refresh:3;url=update.php?step=success" );
 	break;
 	case 'success':

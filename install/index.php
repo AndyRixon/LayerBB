@@ -50,7 +50,7 @@ if (extension_loaded('mcrypt')) {
 							</tr>
 							<tr>
 							    <td>PHP Version</td>
-							    <td><span class="label label-default">5.4.0+</span></td>
+							    <td><span class="label label-default">5.5.0+</span></td>
 							    <td><span class="label label-primary"><?php echo $phpver; ?></span></td>
 							</tr>
 							<tr>

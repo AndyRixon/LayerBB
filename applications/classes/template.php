@@ -51,6 +51,7 @@ class LAYER_Template
                <link rel="stylesheet" href="' . SITE_URL . '/public/js/sceditor/themes/default.min.css" id="theme-style" />
                <link type="text/css" rel="Stylesheet" href="' . SITE_URL . '/public/js/highlighter/styles/shThemeDefault.css"/>
                <link type="text/css" rel="Stylesheet" href="' . SITE_URL . '/public/js/highlighter/styles/shCore.css"/>
+               <script src="https://www.google.com/recaptcha/api.js"></script>
                '
         );
 

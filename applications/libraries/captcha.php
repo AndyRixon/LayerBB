@@ -39,7 +39,8 @@ class LayerBB_Captcha
         if ($this->captcha_type == "1") {
             return '<img src="' . SITE_URL . '/public/img/captcha.php" alt="LayerBB Captcha" /><br /><input type="text" id="LayerBB_captcha" name="LayerBB_captcha" />';
         } else {
-            return recaptcha_get_html($this->key['public'], $this->error);
+            return '<div class="g-recaptcha" data-sitekey="'.$this->key['public'].'"></div>';
+            //return recaptcha_get_html($this->key['public'], $this->error);
         }
     }
 
@@ -57,7 +58,33 @@ class LayerBB_Captcha
                 return true;
             }
         } else {
-            $resp = recaptcha_check_answer(
+            $sender_name = stripslashes($_POST["sender_name"]);
+            $sender_email = stripslashes($_POST["sender_email"]);
+            $sender_message = stripslashes($_POST["sender_message"]);
+            $response = $_POST["g-recaptcha-response"];
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $data = array(
+                'secret' => $this->key['private'],
+                'response' => $_POST["g-recaptcha-response"]
+            );
+            $options = array(
+                'http' => array (
+                    'method' => 'POST',
+                    'content' => http_build_query($data)
+                )
+            );
+            $context  = stream_context_create($options);
+            $verify = file_get_contents($url, false, $context);
+            $captcha_success=json_decode($verify);
+            if ($captcha_success->success==false) {
+               throw new Exception ($LANG['global_form_process']['captcha_incorrect']);
+            } else if ($captcha_success->success==true) {
+                return true;
+            }
+
+
+
+            /*$resp = recaptcha_check_answer(
                 $this->key['private'],
                 $_SERVER['REMOTE_ADDR'],
                 $_POST['recaptcha_challenge_field'],
@@ -67,7 +94,7 @@ class LayerBB_Captcha
                 return true;
             } else {
                 throw new Exception ($LANG['global_form_process']['captcha_incorrect']);
-            }
+            }*/
         }
     }
 
