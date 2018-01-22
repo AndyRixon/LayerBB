@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 session_start();
 
@@ -15,6 +22,11 @@ if (BASEPATH == "Staff") {
     define('PATH_A', '../applications/');
     define('TEMPLATE', '../');
     define('APPLICATION', '');
+} elseif (BASEPATH == "Application") {
+    define('PATH', '../../../');
+    define('PATH_A', '../../../applications/');
+    define('TEMPLATE', '../../../');
+    define('APPLICATION', '../../../applications/');
 } elseif (BASEPATH == "Install") {
     define('PATH', '../../');
     define('PATH_A', '../../applications/');
@@ -68,7 +80,7 @@ if (!defined('Install')) {
                 $package = '../applications/languages/' . $generic->site_language . '.php';
                 $default = '../applications/languages/english.php';
                 break;
-            case "Extension";
+            case "Application";
                 $package = '../../../applications/languages/' . $generic->site_language . '.php';
                 $default = '../../../applications/languages/english.php';
                 break;
@@ -160,6 +172,7 @@ if (!defined('Install')) {
 }
 
 if (!defined('Install')) {
+    include_applications();
     //Check if authenticated via Facebook
     if ($LAYER->data['facebook_authenticate'] == "1") {
         if (isset($_GET['code']) && isset($_GET['state'])) {

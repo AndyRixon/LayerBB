@@ -1,8 +1,14 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 /*
 * Conversations module for LayerBB
-* Delete script by N8boy
 * Everything that you want to display MUST be in the $content variable.
 */
 

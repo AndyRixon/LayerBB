@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 define('BASEPATH', 'Staff');
 require_once('../applications/wrapper.php');
@@ -66,7 +73,21 @@ if ($PGET->g('notice')) {
      }
  }
 
-$query = $MYSQL->query("SELECT * FROM {prefix}users");
+ if($PGET->g('sort')) {
+    $sortid = $PGET->g('sort');
+    $sort = ' WHERE user_group = ' . $sortid;
+ } else {
+    $sort = '';
+ }
+
+$query = $MYSQL->query("SELECT * FROM {prefix}users".$sort."");
+
+$query1 = $MYSQL->query("SELECT * FROM {prefix}usergroups");
+
+$groups = '';
+foreach ($query1 as $g) {
+    $groups .= '<li><a href="' . SITE_URL . '/admin/members.php/sort/' . $g['id'] . '">' . $g['group_name'] . '</a></li>';
+}
 
 $token = NoCSRF::generate('csrf_token');
 $users = '';
@@ -94,7 +115,15 @@ foreach ($query as $u) {
 echo $ADMIN->box(
     'Users  <p class="pull-right"><a href="' . SITE_URL . '/admin/new_user.php" class="btn btn-default btn-xs">New User</a></p>',
     $notice .
-    'You can manage the users here.',
+    'You can manage the users here. <div class="btn-group pull-right">
+  <button type="button" class="btn btn-default dropdown-toggle  btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort Options <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="' . SITE_URL . '/admin/members.php">View All</a></li>
+    '.$groups.'
+  </ul>
+</div>',
     '<table class="table table-hover">
          <thead>
            <tr>

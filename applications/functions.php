@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 /*
  * Standard Functions of LayerBB.
@@ -501,6 +508,18 @@ function rrmdir($dir)
         return true;
     } else {
         return false;
+    }
+}
+
+/*
+ * Include all installed applications.
+ */
+function include_applications()
+{
+    global $MYSQL;
+    $query = $MYSQL->query("SELECT * FROM {prefix}apps");
+    foreach ($query as $app) {
+        require_once('apps/' . $app['appid'] . '/functions.php');
     }
 }
 

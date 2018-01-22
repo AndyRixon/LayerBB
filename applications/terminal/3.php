@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 if (!defined('BASEPATH')) {
     die();

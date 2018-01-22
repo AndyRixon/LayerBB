@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 define('BASEPATH', 'Staff');
 require_once('../applications/wrapper.php');
@@ -30,9 +37,9 @@ if (file_exists('../install')) {
   <b>Security Alert:</b> You have not deleted the install directory, this could potentially impact the security of your forum. Please remove the install directory!
 </div>";
 }
-if (file_exists('../update.php')) {
+if (file_exists('../update')) {
     echo "<div class='alert alert-danger' role='alert'>
-  <b>Security Alert:</b> You have not deleted the update.php file, this could potentially impact the security of your forum. Please remove the update.php file!
+  <b>Security Alert:</b> You have not deleted the update directory, this could potentially impact the security of your forum. Please remove the update directory!
 </div>";
 }
 

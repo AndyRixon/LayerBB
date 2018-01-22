@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 if (!defined('BASEPATH')) {
     die();
@@ -15,10 +22,10 @@ define('MYSQL_PREFIX', '%mysql_prefix%');
 define('MYSQL_PORT', 3306);
 
 /*
- * Iko Local Details
+ * Local Details
  */
 define('SITE_URL', '%site_url%');//Without the ending "/"
-define('LayerBB_VERSION', '1.0.2');
+define('LayerBB_VERSION', '1.0.3');
 define('LAYER_SESSION_TIMEOUT', 31536000);//In seconds.
 define('USER_PASSWORD_HASH_COST', 10);
 

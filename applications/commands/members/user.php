@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 /*
  * User Profile module for LayerBB
@@ -212,16 +219,17 @@ if (isset($user) && isset($userg) && isset($page_title)) {
     $visitors .= '</ul></div>';
 
     //custom profile fields
-    $fields = '<div class="list-group">';
+    $fields = '<ul class="list-group">';
     $MYSQL->bind('profile_owner', $user['id']);
     $query = $MYSQL->query("SELECT * FROM {prefix}profile_field_content WHERE userid = :profile_owner");
     foreach ($query as $field) {
         $MYSQL->bind('fieldid', $field['fieldid']);
+        $f_content = html_entity_decode($field['content']);
         $getfield = $MYSQL->query("SELECT * FROM {prefix}profile_fields WHERE id = :fieldid");
-        $fields .= '<a href="#" class="list-group-item"><h4 class="list-group-item-heading">'.$getfield['0']['title'].'</h4>
-    <p class="list-group-item-text">'.$field['content'].'</p></a>';
+        $fields .= '<li class="list-group-item"><h4 class="list-group-item-heading">'.$getfield['0']['title'].'</h4>
+    <p class="list-group-item-text">'.$f_content.'</p></li>';
     }
-    $fields .= '</div>';
+    $fields .= '</ul>';
 
 
     //Breadcrumbs

@@ -1,4 +1,13 @@
-<?php include 'assets/tpl/header.php'; 
+<?php 
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
+
+include 'assets/tpl/header.php'; 
 $phpver = PHP_VERSION;
 $os = php_uname('s');
 $fileperm = substr(sprintf('%o', fileperms('../applications/config.php')), -3);

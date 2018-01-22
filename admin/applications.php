@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 define('BASEPATH', 'Staff');
 require_once('../applications/wrapper.php');
@@ -80,39 +87,6 @@ if ($PGET->g('activate')) {
      }
  }
 
- if ($PGET->g('uninstall')) {
-     $id = clean($PGET->g('uninstall'));
-     /*$MYSQL->where('id', $d_u);
-     $query = $MYSQL->get('{prefix}usergroups');*/
-     $MYSQL->bind('id', $id);
-     $query = $MYSQL->query('SELECT * FROM {prefix}apps WHERE id = :id');
-
-     if (!empty($query)) {
-
-         //$MYSQL->where('id', $d_u);
-         $MYSQL->bind('id', $id);
-         try {
-             //$MYSQL->delete('{prefix}usergroups');
-             $MYSQL->query('DELETE FROM `{prefix}apps` WHERE `id` = :id');
-             $notice .= $ADMIN->alert(
-                 'Application <strong>' . $query['0']['title'] . '</strong> has been uninstalled!',
-                 'success'
-             );
-         } catch (mysqli_sql_exception $e) {
-             $notice .= $ADMIN->alert(
-                 'Error uninstalling application.',
-                 'danger'
-             );
-         }
-
-     } else {
-         $notice .= $ADMIN->alert(
-             'Application does not exist!',
-             'danger'
-         );
-     }
- }
-
 $query = $MYSQL->query("SELECT * FROM {prefix}apps");
 
 $token = NoCSRF::generate('csrf_token');
@@ -126,7 +100,6 @@ foreach ($query as $a) {
     } else {
         $active = '<ul class="dropdown-menu">
     <li><a href="' . SITE_URL . '/admin/applications.php/activate/' . $a['id'] . '">Activate</a></li>
-    <li><a href="' . SITE_URL . '/admin/applications.php/uninstall/' . $a['id'] . '">Uninstall</a></li>
   </ul>';
     }
     if($a['active']==1){

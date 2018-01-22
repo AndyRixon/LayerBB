@@ -1,7 +1,14 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 /*
- * Iko Error Handler Dependency for form validator.
+ * Error Handler Dependency for form validator.
  */
 if (!defined('BASEPATH')) {
     die();

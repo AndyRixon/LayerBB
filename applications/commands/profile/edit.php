@@ -1,4 +1,11 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 /*
  * Profile edit module for LayerBB.
@@ -43,7 +50,7 @@ if (isset($_POST['edit'])) {
                 $MYSQL->bind('userid', $LAYER->sess->data['id']);
                 $getfieldcontent = $MYSQL->query("SELECT * FROM {prefix}profile_field_content WHERE userid = :userid AND fieldid = :fieldid");
                 $fieldcount = count($getfieldcontent);
-                $field_content = clean($_POST[$fieldid]);
+                $field_content = $_POST[$fieldid];
                 if ($fieldcount == '0' && $field_content != '') {
                     $MYSQL->bind('fieldid', $fieldid);
                     $MYSQL->bind('userid', $LAYER->sess->data['id']);

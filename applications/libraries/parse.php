@@ -1,8 +1,14 @@
 <?php
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 
 /*
  * Additional Parsing Library of LayerBB
- * Rewritten by Jaques1 (https://github.com/LayerBB/LayerBB/pull/6)
  */
 
 if (!defined('BASEPATH')) {

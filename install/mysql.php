@@ -1,4 +1,12 @@
-<?php include 'assets/tpl/header.php'; 
+<?php 
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
+include 'assets/tpl/header.php'; 
 
 ?>
 <div class="row">

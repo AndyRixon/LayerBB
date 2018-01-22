@@ -1,4 +1,11 @@
 <?php 
+//===================================//
+// LayerBB Project                   //
+//-----------------------------------//
+// Website: https://www.layerbb.com  //
+// Email: info@layerbb.com           //
+// Build Series: 1.0                 //
+//===================================//
 define('BASEPATH', '1');
 require_once('../applications/config.php');
 require_once('../applications/functions.php');
@@ -54,6 +61,18 @@ include 'assets/tpl/header.php';
                 
                 //die("INSERT INTO `" . MYSQL_PREFIX . "users` (`username`, `user_password`, `user_email`, `date_joined`, `user_group`) VALUES (".$username.", ".$password.", ".$email.", ".$date.", " . ADMIN_ID . ");");
                 $MYSQL->query("INSERT INTO `" . MYSQL_PREFIX . "users` (`username`, `user_password`, `user_email`, `date_joined`, `user_group`) VALUES ('".$username."', '".$password."', '".$email."', '".$date."', '" . ADMIN_ID . "');");
+                $website = SITE_URL;
+                $name = $username;
+                $url = 'https://api.layerbb.com/api.php?cmd=install';
+                $myvars = 'url=' . $website . '&name=' . $name;
+                $ch = curl_init( $url );
+                curl_setopt( $ch, CURLOPT_POST, 1);
+                curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
+                curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt( $ch, CURLOPT_HEADER, 0);
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+                $response = curl_exec( $ch ); 
+
                echo("<script>location.href = 'done.php';</script>");
 
             }
