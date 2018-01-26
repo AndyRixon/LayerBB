@@ -11,7 +11,7 @@ LayerBB is a small yet feature rich community software which enables you to quic
 **If you have a different configuration to this, and was able to install and use LayerBB successfully - let us know**
 
 ## Installation
-1. Download the latest release from GitHub: https://github.com/AndyRixon/LayerBB/releases
+1. Download the latest release from our website: https://forum.layerbb.com/downloads.php?view=category&id=2
 2. Unzip the archive you downloaded to your computer using 7-Zip or WinRar.
 3. Upload the contents of the unzipped folder using an FTP client such as FileZilla.
 4. Rename config.php.new in the applications directory to config.php
@@ -22,7 +22,7 @@ LayerBB is a small yet feature rich community software which enables you to quic
 If you had issues during installation, please consult the "Help Me!" section of this README.
 
 ## Upgrading
-1. Download the latest release from GitHub: https://github.com/AndyRixon/LayerBB/releases
+1. Download the latest release from our website: https://forum.layerbb.com/downloads.php?view=category&id=2
 2. Unzip the archive you downloaded to your computer using 7-Zip or WinRar.
 3. Upload the contents of the unzipped folder using an FTP client such as FileZilla.
 4. Using your browser, navigate to the update script (I.E: http://yourdomain.com/update/).
