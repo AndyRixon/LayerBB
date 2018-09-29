@@ -15,7 +15,7 @@ try {
 }
 
 // Latest SQL
-$MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."generic` ADD `enable_signatures` INT(1) NOT NULL DEFAULT '1' AFTER `enable_rtl`, ADD `enable_pcomments` INT(1) NOT NULL DEFAULT '1' AFTER `enable_signatures`;");
+/*$MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."generic` ADD `enable_signatures` INT(1) NOT NULL DEFAULT '1' AFTER `enable_rtl`, ADD `enable_pcomments` INT(1) NOT NULL DEFAULT '1' AFTER `enable_signatures`;");
 $MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."generic` DROP `smtp_address`, DROP `smtp_port`, DROP `smtp_username`, DROP `smtp_password`;");
 $MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."usergroups` ADD `banner_style_s` VARCHAR(255) NOT NULL DEFAULT '<span class=\"label label -default\">' AFTER `group_style`;");
 $MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."usergroups` ADD `banner_style_e` VARCHAR(255) NOT NULL DEFAULT '</span>' AFTER `banner_style_s`;");
@@ -26,5 +26,5 @@ $MYSQL->query("CREATE TABLE IF NOT EXISTS `".MYSQL_PREFIX."likes` ( `id` INT(12)
 $sand = file_get_contents('../public/themes/Sand/entities.json');
 $stmt = $MYSQL->prepare("UPDATE `" . MYSQL_PREFIX . "themes` SET `theme_json_data` = :sand WHERE `id` = 1;");
 $stmt->bindParam(':sand', $sand);
-$stmt->execute();
+$stmt->execute();*/
 ?>
