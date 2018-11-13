@@ -40,5 +40,12 @@ $MYSQL->query("ALTER TABLE `" . MYSQL_PREFIX . "generic` DROP `facebook_authenti
 $MYSQL->query("ALTER TABLE `" . MYSQL_PREFIX . "users` DROP `facebook_id`;");
 // Version 1.0.6
 $MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."generic` ADD `enable_rtl` INT(1) NOT NULL AFTER `board_signature`;");
+// Version 1.1.0
+$MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."generic` ADD `enable_signatures` INT(1) NOT NULL DEFAULT '1' AFTER `enable_rtl`, ADD `enable_pcomments` INT(1) NOT NULL DEFAULT '1' AFTER `enable_signatures`;");
+$MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."generic` DROP `smtp_address`, DROP `smtp_port`, DROP `smtp_username`, DROP `smtp_password`;");
+$MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."usergroups` ADD `banner_style_s` VARCHAR(255) NOT NULL DEFAULT '<span class=\"label label -default\">' AFTER `group_style`;");
+$MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."usergroups` ADD `banner_style_e` VARCHAR(255) NOT NULL DEFAULT '</span>' AFTER `banner_style_s`;");
+$MYSQL->query("CREATE TABLE IF NOT EXISTS `".MYSQL_PREFIX."user_followers` ( `id` INT(12) NOT NULL AUTO_INCREMENT , `profile_owner` INT(12) NULL , `follower` INT(12) NULL , PRIMARY KEY (`id`))");
+$MYSQL->query("CREATE TABLE IF NOT EXISTS `".MYSQL_PREFIX."likes` ( `id` INT(12) NOT NULL AUTO_INCREMENT , `u_id` INT(12) NULL , `p_id` INT(12) NULL , PRIMARY KEY (`id`))");
 
 ?>

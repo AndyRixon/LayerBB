@@ -19,7 +19,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.1.1');
+define('VERSION', '1.1.2');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once '../applications/config.php';
 $new_mysql_host = MYSQL_HOST;
@@ -134,6 +134,12 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 			include 'versions/previous.php';
 			include 'versions/latest.php';
 		} elseif ('1.0.5' == $old_version) {
+			include 'versions/previous.php';
+			include 'versions/latest.php';
+		} elseif ('1.1.0' == $old_version) {
+			include 'versions/previous.php';
+			include 'versions/latest.php';
+		} elseif ('1.1.1' == $old_version) {
 			include 'versions/previous.php';
 			include 'versions/latest.php';
 		} else {

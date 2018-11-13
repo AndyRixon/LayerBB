@@ -54,7 +54,8 @@ $LANG = array(
             'user_not_exist' => 'User <strong>%username%</strong> does not exist!',
             'message_sent' => 'Your message to <strong>%username%</strong> has been sent!',
             'error_sending' => 'Error sending message to <strong>%username%</strong>.',
-            'error_sending_alt' => 'Error sending message.'
+            'error_sending_alt' => 'Error sending message.',
+            'illegal_data' => 'Your message title contains a character that is not allowed!'
         ),
         'members' => array(
             'home' => 'Members',

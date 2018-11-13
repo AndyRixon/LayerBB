@@ -151,6 +151,9 @@ switch ($PGET->g('cmd')) {
                 redirect(SITE_URL . '/offline.php');
             }
         }
+        if (!$LAYER->sess->isLogged) {
+            redirect(SITE_URL);
+        }
         require_once('applications/commands/members/home.php');
         $LAYER->tpl->addParam(
             array(

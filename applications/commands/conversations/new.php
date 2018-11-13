@@ -31,6 +31,12 @@ if (isset($_POST['create'])) {
         $time = time();
         $uid = explode(',', $user);
 
+        $illegal['0'] = '<';
+        $illegal['1'] = '>';
+        if (strpos($title,$illegal['0']) !== false OR strpos($title,$illegal['1']) !== false) {
+            throw new Exception ($LANG['bb']['conversations']['illegal_data']);
+        }
+
         if (!$user or !$cont or !$title) {
             throw new Exception ($LANG['global_form_process']['all_fields_required']);
         } else {

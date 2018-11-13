@@ -15,6 +15,6 @@
  		<div class="col-md-8"> 	
   			<div class="row">
   				<div class="col-md-6"><img src="assets/img/LayerBB_logo.png" /></div>
-  				<div class="col-md-6" style="text-align: right;"><br /><h3>1.1.1</h3></div>
+  				<div class="col-md-6" style="text-align: right;"><br /><h3>1.1.2</h3></div>
 			</div>
 			<br />

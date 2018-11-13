@@ -26,7 +26,7 @@ define('MYSQL_PORT', 3306);
  */
 define('SITE_URL', '%site_url%');//Without the ending "/"
 define('SITE_PATH', '%site_path%'); // Without the ending "/"
-define('LayerBB_VERSION', '1.1.1');
+define('LayerBB_VERSION', '1.1.2');
 define('LAYER_SESSION_TIMEOUT', 31536000);//In seconds.
 define('USER_PASSWORD_HASH_COST', 10);
 
