@@ -34,7 +34,7 @@ if (isset($_POST['create'])) {
         $illegal['0'] = '<';
         $illegal['1'] = '>';
         if (strpos($title,$illegal['0']) !== false OR strpos($title,$illegal['1']) !== false) {
-            throw new Exception ($LANG['bb']['conversations']['illegal_data']);
+            throw new Exception ($LANG['bb']['illegal_data']);
         }
 
         if (!$user or !$cont or !$title) {

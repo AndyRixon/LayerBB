@@ -77,9 +77,9 @@ if (isset($_POST['update'])) {
         $email_verify = (isset($_POST['email_verify'])) ? '1' : '0';
 
         $board_signature = $_POST['board_signature'];
-        $enable_rtl = $_POST['enable_rtl'];
-        $enable_signatures = $_POST['enable_signatures'];
-        $enable_pcomments = $_POST['enable_pcomments'];
+        $enable_rtl = (isset($_POST['enable_rtl'])) ? '1' : '0';
+        $enable_signatures = (isset($_POST['enable_signatures'])) ? '1' : '0';
+        $enable_pcomments = (isset($_POST['enable_pcomments'])) ? '1' : '0';
         if($_FILES["custom_logo"]["name"]=='') {
              $customlogo = $LAYER->data['logo'];
             //die('NO CHANGE: '.$customlogo);

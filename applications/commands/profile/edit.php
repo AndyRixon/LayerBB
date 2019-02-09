@@ -51,7 +51,8 @@ if (isset($_POST['edit'])) {
                 $MYSQL->bind('userid', $LAYER->sess->data['id']);
                 $getfieldcontent = $MYSQL->query("SELECT * FROM {prefix}profile_field_content WHERE userid = :userid AND fieldid = :fieldid");
                 $fieldcount = count($getfieldcontent);
-                $field_content = $_POST[$fieldid];
+                $field_content = htmlspecialchars($_POST[$fieldid]);
+                
                 if ($fieldcount == '0' && $field_content != '') {
                     $MYSQL->bind('fieldid', $fieldid);
                     $MYSQL->bind('userid', $LAYER->sess->data['id']);
@@ -69,6 +70,7 @@ if (isset($_POST['edit'])) {
                         $MYSQL->query("UPDATE {prefix}profile_field_content SET content = :content WHERE userid = :userid AND fieldid = :fieldid");
                     }
                 }
+                
             }
 
             if ($email !== $LAYER->sess->data['user_email']) {
@@ -193,7 +195,7 @@ $bc = $LAYER->tpl->breadcrumbs();
 if (isset($LAYER->sess->data['user_birthday']) && $LAYER->sess->data['user_birthday'] != '0000-00-00') {
     $val_birthday = $LAYER->sess->data['user_birthday'];
 } else {
-    $val_birthday = 'YYYY-MM-DD';
+    $val_birthday = '0000-00-00';
 }
 
 $content .= '<form id="LAYER_form" action="" method="POST">
@@ -209,6 +211,7 @@ $content .= '<form id="LAYER_form" action="" method="POST">
                  ' . $locations . '
                  <br />
                  ' . $FORM->build('text', $LANG['bb']['members']['birthday'], 'birthday', array('value' => $val_birthday)) . '
+                 <span id="helpBlock" class="help-block">In the format of: YYYY-MM-DD</span>
                  <label for="editor">' . $LANG['bb']['profile']['about_you'] . '</label><br />
                  <textarea name="about" id="editor" style="min-width:100%;max-width:100%;height:150px;">' . $LAYER->sess->data['about_user'] . '</textarea>
                  <br />

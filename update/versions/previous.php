@@ -47,5 +47,7 @@ $MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."usergroups` ADD `banner_style_s` VAR
 $MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."usergroups` ADD `banner_style_e` VARCHAR(255) NOT NULL DEFAULT '</span>' AFTER `banner_style_s`;");
 $MYSQL->query("CREATE TABLE IF NOT EXISTS `".MYSQL_PREFIX."user_followers` ( `id` INT(12) NOT NULL AUTO_INCREMENT , `profile_owner` INT(12) NULL , `follower` INT(12) NULL , PRIMARY KEY (`id`))");
 $MYSQL->query("CREATE TABLE IF NOT EXISTS `".MYSQL_PREFIX."likes` ( `id` INT(12) NOT NULL AUTO_INCREMENT , `u_id` INT(12) NULL , `p_id` INT(12) NULL , PRIMARY KEY (`id`))");
+// Version 1.1.2
+$MYSQL->query("ALTER TABLE `".MYSQL_PREFIX."users` CHANGE `user_signature` `user_signature` LONGTEXT NULL;");
 
 ?>

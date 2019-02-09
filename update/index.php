@@ -19,7 +19,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.1.2');
+define('VERSION', '1.1.3');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once '../applications/config.php';
 $new_mysql_host = MYSQL_HOST;
@@ -177,7 +177,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 			$start = '<div class="alert alert-danger" role="alert"><b>Incorrect File Permission:</b> Please check the file permissions above are correct.</div>';
 		}
 		echo "Welcome to the Updater Script for <b>LayerBB ". VERSION ."</b>";
-		echo '<div class="alert alert-danger" role="alert">Any changes that you have made to the theme will be overwritten during this process, please always take a fulle backup.</div>
+		echo '<div class="alert alert-danger" role="alert">Any changes that you have made to the theme will be overwritten during this process, please always take a full backup.</div>
 		<b>File Permissions</b>
 		<ul>
   <li>applications/ set to 777</li>

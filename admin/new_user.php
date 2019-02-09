@@ -32,7 +32,7 @@ function list_groups()
 
         if (isset($_POST['create'])) {
             try {
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
                 
 
                 $username = $_POST['username'];

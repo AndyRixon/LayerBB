@@ -171,7 +171,7 @@ foreach($getnews as $news) {
         <h4 class="modal-title" id="More-'.$news->id.'">'.$news->title.'</h4>
       </div>
       <div class="modal-body">
-      <i>Submitted on '.$news->time.'</i>
+      <i>Submitted on '.$news->time.'</i><br />
         '.$news->content.'
       </div>
       <div class="modal-footer">

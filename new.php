@@ -204,7 +204,7 @@ if ($PGET->g('node')) {
                         $tid = $MYSQL->query("SELECT * FROM {prefix}forum_posts WHERE post_time = :post_time;");
                         if (!empty($_POST['question'])) {
                             $MYSQL->bind('thread_id', $tid['0']['id']);
-                            $MYSQL->bind('question', $_POST['question']);
+                            $MYSQL->bind('question', htmlspecialchars($_POST['question']));
                             $MYSQL->query("INSERT INTO {prefix}poll (question, thread_id) VALUES (:question, :thread_id);");
                             $poll_id = $MYSQL->query("SELECT LAST_INSERT_ID(id) AS LAST_ID FROM {prefix}poll ORDER BY id DESC LIMIT 1;");
                             for ($i = 1; ; $i++) {
@@ -213,7 +213,7 @@ if ($PGET->g('node')) {
                                 }
                                 if (!empty($_POST['answer_' . $i])) {
                                     $MYSQL->bind('poll_id', $poll_id['0']['LAST_ID']);
-                                    $MYSQL->bind('answer', $_POST['answer_' . $i]);
+                                    $MYSQL->bind('answer', htmlspecialchars($_POST['answer_' . $i]));
                                     $MYSQL->query("INSERT INTO {prefix}poll_answers (poll_id, answer) VALUES (:poll_id, :answer);");
                                 }
                             }

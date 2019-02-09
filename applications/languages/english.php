@@ -32,6 +32,7 @@ $LANG = array(
         'error_watching' => 'Error watching thread.',
         'error_unwatching' => 'Error unwatching thread.',
         'none' => 'None',
+        'illegal_data' => 'One of your fields contains a character that is not allowed!',
         'form' => array(
             'edit_post' => 'Edit Post',
             'report' => 'Report',
@@ -54,8 +55,7 @@ $LANG = array(
             'user_not_exist' => 'User <strong>%username%</strong> does not exist!',
             'message_sent' => 'Your message to <strong>%username%</strong> has been sent!',
             'error_sending' => 'Error sending message to <strong>%username%</strong>.',
-            'error_sending_alt' => 'Error sending message.',
-            'illegal_data' => 'Your message title contains a character that is not allowed!'
+            'error_sending_alt' => 'Error sending message.'
         ),
         'members' => array(
             'home' => 'Members',

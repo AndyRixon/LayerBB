@@ -15,7 +15,7 @@ try {
 }
 
 // Latest SQL
-$MYSQL->query("ALTER TABLE `" . MYSQL_PREFIX . "users` CHANGE `user_signature` `user_signature` LONGTEXT NULL;");
+
 
 // Update theme
 /*$sand = file_get_contents('../public/themes/Sand/entities.json');
