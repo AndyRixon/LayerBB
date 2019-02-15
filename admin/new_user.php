@@ -35,10 +35,10 @@ function list_groups()
                 NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
                 
 
-                $username = $_POST['username'];
-                $email = $_POST['email'];
+                $username = clean($_POST['username']);
+                $email = clean($_POST['email']);
                 $password = $_POST['password'];
-                $usergroup = $_POST['usergroup'];
+                $usergroup = clean($_POST['usergroup']);
                 $time = time();
 
                 if (!$username) {
