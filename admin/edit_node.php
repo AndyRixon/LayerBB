@@ -168,7 +168,7 @@ if ($PGET->g('id')) {
                 <label for="allowed_usergroups">Allowed Usergroups</label><br />
                 ' . allowed_usergroups($query['0']['allowed_usergroups']) . '
                 <label for="labels">Labels</label> <small>Each Line is a new label. HTML enabled.</small>
-                <textarea name="labels" id="labels" class="form-control">' . $labels . '</textarea><br />
+                <textarea name="labels" id="labels" class="form-control">' . htmlspecialchars($labels) . '</textarea><br />
                 <input type="submit" name="update" value="Save Changes" class="btn btn-default" />
             </form>',
             '',
