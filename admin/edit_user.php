@@ -42,7 +42,7 @@ if ($PGET->g('id')) {
 
         if (isset($_POST['update'])) {
             try {
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
                 $username = clean($_POST['username']);
                 $email = clean($_POST['email']);
@@ -58,7 +58,7 @@ if ($PGET->g('id')) {
                     $MYSQL->bind('usermsg', $usermsg);
                     $MYSQL->bind('usergroup', $usergroup);
                     $MYSQL->bind('signature', $signature);
-                    $MYSQL->bind('disabled', $disabled);   
+                    $MYSQL->bind('disabled', $disabled);
                     $MYSQL->bind('id', $id);
                     try {
                         $u_query = $MYSQL->query('UPDATE {prefix}users SET username = :username,
