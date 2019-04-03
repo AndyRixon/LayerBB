@@ -29,7 +29,7 @@ if (isset($_POST['edit'])) {
             $_POST[$parent] = clean($child);
         }
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
         $email = $_POST['email'];
         $tz = $_POST['timezone'];
         $about = emoji_to_text($_POST['about']);
@@ -52,7 +52,7 @@ if (isset($_POST['edit'])) {
                 $getfieldcontent = $MYSQL->query("SELECT * FROM {prefix}profile_field_content WHERE userid = :userid AND fieldid = :fieldid");
                 $fieldcount = count($getfieldcontent);
                 $field_content = htmlspecialchars($_POST[$fieldid]);
-                
+
                 if ($fieldcount == '0' && $field_content != '') {
                     $MYSQL->bind('fieldid', $fieldid);
                     $MYSQL->bind('userid', $LAYER->sess->data['id']);
@@ -70,7 +70,7 @@ if (isset($_POST['edit'])) {
                         $MYSQL->query("UPDATE {prefix}profile_field_content SET content = :content WHERE userid = :userid AND fieldid = :fieldid");
                     }
                 }
-                
+
             }
 
             if ($email !== $LAYER->sess->data['user_email']) {
@@ -89,7 +89,7 @@ if (isset($_POST['edit'])) {
                     );
                     $MYSQL->query("UPDATE {prefix}users SET user_email = :user_email, about_user = :about_user, set_timezone = :set_timezone, user_birthday = :user_birthday, location = :location, gender = :gender, user_message = :usermsg WHERE id = :id");
                         redirect(SITE_URL . '/profile.php/cmd/edit');
-                    
+
 
                 } else {
                     throw new Exception ($LANG['global_form_process']['email_used']);
@@ -110,7 +110,7 @@ if (isset($_POST['edit'])) {
 
                 $MYSQL->query("UPDATE {prefix}users SET set_timezone = :set_timezone, location = :location, gender = :gender, user_birthday = :user_birthday, about_user = :about_user, user_message = :usermsg WHERE id = :id");
                     redirect(SITE_URL . '/profile.php/cmd/edit');
-                
+
 
             }
         }
