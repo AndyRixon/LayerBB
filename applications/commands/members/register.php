@@ -29,7 +29,7 @@ if (isset($_POST['register']) && $LAYER->data['register_enable'] == 1) {
             $_POST[$parent] = clean($child);
         }
 
-        NoCSRF::check('csrf_token', $_POST);//CSRF Checking.
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true); //CSRF Checking.
         $username = $_POST['username'];
         $password = $_POST['password'];
         $a_password = $_POST['a_password'];
