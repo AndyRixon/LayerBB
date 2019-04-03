@@ -47,7 +47,7 @@ if (isset($_POST['change_place'])) {
             $_POST[$parent] = clean($value);
         }
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
         $place = $_POST['cat_place'];
         $p_cat = $_POST['cat_id'];
