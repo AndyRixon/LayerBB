@@ -29,7 +29,7 @@ if (isset($_POST['edit'])) {
             $_POST[$parent] = clean($child);
         }
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
         $new_password = $_POST['new_password'];
         $con_password = $_POST['current_password'];
 
