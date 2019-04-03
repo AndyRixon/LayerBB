@@ -39,7 +39,7 @@ if ($PGET->g('post')) {
                     $_POST[$parent] = clean($child);
                 }
 
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
                 $reason = $_POST['reason'];
 
                 if (!$reason) {
