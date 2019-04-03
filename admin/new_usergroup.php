@@ -44,7 +44,7 @@ function list_permissions()
 if (isset($_POST['new'])) {
     try {
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
         $name  = clean($_POST['g_name']);
         $style = $_POST['g_style'];
         $perms = (!empty($_POST['permissions']))? $_POST['permissions'] : '';
