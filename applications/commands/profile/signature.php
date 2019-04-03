@@ -29,7 +29,7 @@ if (isset($_POST['edit'])) {
             $_POST[$parent] = clean($child);
         }
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
         $sig = emoji_to_text($_POST['sig']);
         $MYSQL->bindMore(
             array(
