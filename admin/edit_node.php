@@ -66,7 +66,7 @@ if ($PGET->g('id')) {
 
         if (isset($_POST['update'])) {
             try {
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
                 $title = clean($_POST['node_title']);
                 $desc = (!$_POST['node_desc']) ? '' : clean($_POST['node_desc']);
