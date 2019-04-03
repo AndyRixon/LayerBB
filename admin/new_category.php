@@ -38,7 +38,7 @@ if (isset($_POST['create'])) {
             $_POST[$parent] = clean($child);
         }*/
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
         $title = clean($_POST['cat_title']);
         $desc = (!$_POST['cat_desc']) ? '' : clean($_POST['cat_desc']);
