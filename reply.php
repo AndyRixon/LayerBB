@@ -175,7 +175,7 @@ if ($PGET->s(true)) {
                         throw new Exception ('Invalid CSRF token!');
                     }
                 } else {
-                    NoCSRF::check('csrf_token', $_POST);
+                    NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
                 }
 
                 $cont = emoji_to_text($_POST['content']);

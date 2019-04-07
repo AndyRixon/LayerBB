@@ -29,10 +29,10 @@ if (isset($_POST['reset'])) {
             $_POST[$parent] = clean($child);
         }
         $token = clean($PGET->g('token'));
-        
 
 
-        NoCSRF::check('csrf_token', $_POST);
+
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
         if($_POST['password']==$_POST['a_password']){
             if($_POST['a_password']==$_POST['password']){
@@ -40,7 +40,7 @@ if (isset($_POST['reset'])) {
                 $MYSQL->bind('token', $token);
                 $query = $MYSQL->query("SELECT * FROM {prefix}password_reset_requests WHERE reset_token = :token");
                 $MYSQL->bind('user', $query['0']['user']);
-                $MYSQL->bind('hashpass', $password);               
+                $MYSQL->bind('hashpass', $password);
                 $resetpass = $MYSQL->query("UPDATE {prefix}users SET user_password = :hashpass WHERE id = :user");
                 if ($resetpass) {
                     $MYSQL->query("DELETE FROM {prefix}password_reset_requests WHERE user = ".$query['0']['user']."");

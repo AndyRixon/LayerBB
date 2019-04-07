@@ -33,7 +33,7 @@ if ($PGET->g('id')) {
                     $_POST[$parent] = clean($child);
                 }
 
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
                 $cont = clean(emoji_to_text($_POST['content']));
                 $time = time();
 

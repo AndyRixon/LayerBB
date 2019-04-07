@@ -195,7 +195,7 @@ if (isset($_POST['change_place'])) {
             $_POST[$parent] = clean($value);
         }
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
         $place = $_POST['node_place'];
         $p_node = $_POST['node_id'];

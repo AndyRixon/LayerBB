@@ -77,13 +77,13 @@ if ($PGET->g('notice')) {
 
  if (isset($_POST['savechange'])) {
 
-    NoCSRF::check('csrf_token', $_POST);
+    NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
      $id = clean($_POST['id']);
      $title = clean($_POST['title']);
-     
+
      $MYSQL->bind('id', $id);
-     $MYSQL->bind('title', $title);               
-    
+     $MYSQL->bind('title', $title);
+
      try {
              $MYSQL->query('UPDATE {prefix}profile_fields SET title = :title
                                                     WHERE id = :id');
@@ -102,9 +102,9 @@ if ($PGET->g('notice')) {
  if (isset($_POST['newfield'])) {
 
      $title = clean($_POST['title']);
-     
-     $MYSQL->bind('title', $title);              
-    
+
+     $MYSQL->bind('title', $title);
+
      try {
              $MYSQL->query('INSERT INTO `{prefix}profile_fields` (title) VALUES (:title);');
              $notice .= $ADMIN->alert(

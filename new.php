@@ -140,7 +140,7 @@ if ($PGET->g('node')) {
 
         if (isset($_POST['create'])) {
             try {
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
                 $thread_title = clean($_POST['title']);
                 $thread_cont = emoji_to_text($_POST['content']);
                 $label_id = !empty($_POST['label']) ? $_POST['label'] : 0;
@@ -287,7 +287,7 @@ if ($PGET->g('node')) {
                 $width
             )
         );
-        
+
         $content .= $LAYER->tpl->entity(
             'thread_options',
             array(),

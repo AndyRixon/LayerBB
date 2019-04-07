@@ -32,7 +32,7 @@ if (isset($_POST['forget'])) {
 
         $email = $_POST['email'];
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
         if (!$email) {
             throw new Exception ($LANG['global_form_process']['all_fields_required']);

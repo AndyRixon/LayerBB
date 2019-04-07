@@ -75,21 +75,21 @@ if ($PGET->g('notice')) {
 
  if (isset($_POST['savechange'])) {
 
-    NoCSRF::check('csrf_token', $_POST);
+    NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
      $id = clean($_POST['id']);
      $title = clean($_POST['title']);
      $content = $_POST['content'];
      $style = clean($_POST['style']);
      $glyphicon = clean($_POST['glyphicon']);
      $order = clean($_POST['order']);
-     
+
      $MYSQL->bind('id', $id);
      $MYSQL->bind('title', $title);
      $MYSQL->bind('content', $content);
      $MYSQL->bind('style', $style);
      $MYSQL->bind('glyphicon', $glyphicon);
      $MYSQL->bind('order', $order);                
-    
+
      try {
              $MYSQL->query('UPDATE {prefix}sidebar SET title = :title,
                                                     content = :content,
@@ -116,13 +116,13 @@ if ($PGET->g('notice')) {
      $style = clean($_POST['style']);
      $glyphicon = clean($_POST['glyphicon']);
      $order = clean($_POST['order']);
-     
+
      $MYSQL->bind('title', $title);
      $MYSQL->bind('content', $content);
      $MYSQL->bind('style', $style);
      $MYSQL->bind('glyphicon', $glyphicon);
-     $MYSQL->bind('order', $order);               
-    
+     $MYSQL->bind('order', $order);
+
      try {
              $MYSQL->query('INSERT INTO `{prefix}sidebar` (title, content, style, glyphicon, sideorder) VALUES (:title, :content, :style, :glyphicon, :order);');
              $notice .= $ADMIN->alert(

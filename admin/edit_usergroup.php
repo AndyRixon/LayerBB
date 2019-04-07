@@ -56,7 +56,7 @@ if ($PGET->g('id')) {
         if (isset($_POST['update'])) {
             try {
 
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
                 $name = clean($_POST['g_name']);
                 $style = $_POST['g_style'];

@@ -58,7 +58,7 @@ if (isset($_POST['update'])) {
             $_POST[$parent] = clean($child);
         }
 
-        NoCSRF::check('csrf_token', $_POST);
+        NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
         $site_name = $_POST['site_name'];
         $board_email = $_POST['board_email'];

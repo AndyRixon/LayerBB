@@ -173,7 +173,7 @@ if ($PGET->g('post')) {
         if (isset($_POST['edit'])) {
             try {
 
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
                 $con = emoji_to_text($_POST['content']);
                 $thread_title = clean($_POST['title']);

@@ -32,7 +32,7 @@ if ($PGET->g('notice')) {
  }
         if (isset($_POST['send'])) {
             try {
-                NoCSRF::check('csrf_token', $_POST);
+                NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
 
                 $subject = htmlspecialchars_decode(clean($_POST['subject']));
                 $username = $s['user_email'];
@@ -49,16 +49,16 @@ if ($PGET->g('notice')) {
                         $board_signature = $LAYER->data['board_signature'];
                         foreach ($query as $s) {
                             $datejoined = date('l jS \of F Y', $s['date_joined']);
-                            $replace = array( 
-                                '%siteurl%' => SITE_URL, 
+                            $replace = array(
+                                '%siteurl%' => SITE_URL,
                                 '%sitename%' => $LAYER->data['site_name'],
                                 '%username%' => $s['username'],
                                 '%datejoined%' => $datejoined,
                                 '%signature%' => $board_signature,
                                 '%profileurl%' => SITE_URL . '/members.php/cmd/user/id/' . $s['id']
-                            ); 
+                            );
 
-                            $emailreplace = strtr($emailcontent,$replace); 
+                            $emailreplace = strtr($emailcontent,$replace);
                             $content = $emailreplace;
                             $headers = 'From: '.$sitename.' <'.$siteemail.'>' . "\r\n" .
                                        'Reply-To: '.$siteemail . "\r\n" .

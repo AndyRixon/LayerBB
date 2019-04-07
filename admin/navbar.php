@@ -75,19 +75,19 @@ if ($PGET->g('notice')) {
 
  if (isset($_POST['savechange'])) {
 
-    NoCSRF::check('csrf_token', $_POST);
+    NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
      $id = clean($_POST['id']);
      $title = clean($_POST['title']);
      $url = clean($_POST['url']);
      $newpage = clean($_POST['newpage']);
      $order = clean($_POST['order']);
-     
+
      $MYSQL->bind('id', $id);
      $MYSQL->bind('title', $title);
      $MYSQL->bind('url', $url);
      $MYSQL->bind('newpage', $newpage);
-     $MYSQL->bind('order', $order);                
-    
+     $MYSQL->bind('order', $order);
+
      try {
              $MYSQL->query('UPDATE {prefix}nav SET title = :title,
                                                     url = :url,
@@ -108,17 +108,17 @@ if ($PGET->g('notice')) {
 
  if (isset($_POST['newitem'])) {
 
-    NoCSRF::check('csrf_token', $_POST);
+    NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
      $title = clean($_POST['title']);
      $url = clean($_POST['url']);
      $newpage = clean($_POST['newpage']);
      $order = clean($_POST['order']);
-     
+
      $MYSQL->bind('title', $title);
      $MYSQL->bind('url', $url);
      $MYSQL->bind('newpage', $newpage);
-     $MYSQL->bind('order', $order);                
-    
+     $MYSQL->bind('order', $order);
+
      try {
              $MYSQL->query('INSERT INTO `{prefix}nav` (url, newpage, title, ordernav) VALUES (:url, :newpage, :title, :order);');
              $notice .= $ADMIN->alert(
