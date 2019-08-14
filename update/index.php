@@ -19,7 +19,7 @@ ini_set('magic_quotes_runtime', 0);
 
 ob_start();
 session_start();
-define('VERSION', '1.1.3');
+define('VERSION', '1.1.4');
 echo '<title>LayerBB '. VERSION .' Updater!</title>';
 require_once '../applications/config.php';
 $new_mysql_host = MYSQL_HOST;
@@ -187,7 +187,7 @@ define(\'POST_RESULTS_PER_PAGE\', 9);
 	break;
 }
 echo '</div>
-  <div class="panel-footer">&copy; <a href="https://www.layerbb.com" target="_blank">LayerBB 2018</a></div>
+  <div class="panel-footer">&copy; <a href="https://www.layerbb.com" target="_blank">LayerBB 2019</a></div>
 </div>
 </div>
   <div class="col-md-4"></div>

@@ -17,7 +17,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> <?php echo LayerBB_VERSION; ?>
     </div>
-    <strong>Copyright &copy; 2018 <a href="https://www.layerbb.com">LayerBB</a>.</strong> All rights
+    <strong>Copyright &copy; 2019 <a href="https://www.layerbb.com">LayerBB</a>.</strong> All rights
     reserved.
   </footer>
  </div>
